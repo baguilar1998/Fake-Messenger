@@ -1,18 +1,24 @@
 <div class="row">
+
   <!-- Logo -->
   <div class="col-lg-12 text-center" style="padding:5px">
       <img src="../../../assets/logo.png" style="width:14%">
   </div>
+
   <!--Title -->
   <div class="col-lg-12 text-center" style="padding:20px">
       <p id="title">Messenger</p>
   </div>
+
+  <!-- Login View-->
   <div class="col-lg-12" *ngIf="!checkSignUp()">
+
     <!--Information-->
     <div class="col-lg-12 text-center">
         <p id="message">Instantly connect with people in your life</p>
         <p id="message" style="padding:10px">Sign in with Facebook to get started</p>
     </div>
+
     <!--Input Fields-->
     <div class="col-lg-7 text-center" style="display:block;margin:auto;">
       <div class="form-group">
@@ -22,18 +28,60 @@
         <input type="password" class="form-control"  placeholder="Password" style="height:45px" >
       </div>
     </div>
+
     <!--Sign In Button-->
     <div class="col-lg-12 text-center">
-        <button type="button" class="btn btn-primary" style="height:50px;width:345px;"><strong>Sign In</strong></button>
+        <button type="button" class="btn btn-primary" style="height:50px;width:330px;"><strong>Sign In</strong></button>
     </div>
+
+    <!-- Keep me signed in Checkbox -->
     <div class="col-lg-12 text-center" style="padding:7px">
       <div class="form-check text-center">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" style="height:15px">
           <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
       </div>
     </div>
+
+    <!-- Switches to sign up view -->
     <div class="col-lg-12 text-center">
       <p style="font-size: 11pt">Don't have an account. <span (click)="setSignUp()" style="cursor: pointer;color:dodgerblue">Sign up here.</span></p>
     </div>
   </div>
+
+  <!-- Sign up view -->
+  <div *ngIf="checkSignUp()" class="col-lg-12 text-center">
+
+    <!-- Prompt -->
+    <div class="col-lg-12">
+        <p id="message">Fill in the following credentials</p>
+    </div>
+
+    <!-- Required Input Fields -->
+    <div class="col-lg-7 text-center" style="display:block;margin:auto;">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
+      </div>
+    </div>
+
+      <!--Sign Up Button-->
+      <div class="col-lg-12 text-center" >
+          <button type="button" class="btn btn-primary" style="height:50px;width:330px;"><strong>Sign Up</strong></button>
+      </div>
+
+    <!-- Switches over to login view-->
+    <div class="col-lg-12 text-center" style="padding:7px">
+      <p style="font-size: 11pt">Have have an account. <span (click)="setSignUp()" style="cursor: pointer;color:dodgerblue">Click here to sign in.</span></p>
+    </div>
+
+  </div>
+
 </div>
