@@ -59,22 +59,22 @@
     <!-- Required Input Fields -->
     <div class="col-lg-10 text-center" style="display:block;margin:auto;">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
+        <input [(ngModel)]="newUser.firstName" type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
+        <input [(ngModel)]="newUser.lastName" type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
+        <input [(ngModel)]="newUser.email" type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
       </div>
       <div class="form-group">
-        <input type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
+        <input [(ngModel)]="newUser.password" type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
       </div>
     </div>
 
       <!--Sign Up Button-->
       <div class="col-lg-12 text-center" >
-          <button type="button" class="btn btn-primary" style="height:50px;width:330px;"><strong>Sign Up</strong></button>
+          <button (click)="register()" type="button" class="btn btn-primary" style="height:50px;width:330px;"><strong>Sign Up</strong></button>
       </div>
 
     <!-- Switches over to login view-->
