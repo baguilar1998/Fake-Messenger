@@ -1,9 +1,20 @@
 var createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const User = require('./models/User');
+
 var path = require('path');
 
 const app = express();
+
+mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Main?retryWrites=true")
+.then(()=>{
+  console.log("Connected to database");
+}).catch(()=>{
+  console.log("Connection failed");
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -27,8 +38,18 @@ app.use(function(req, res, next) {
 
 // Posts a requests (FIND OUT WHY POST ISNT WORKING)
 app.use('/api/users',(req,res,next) => {
-  const message = req.body;
-  console.log(message);
+
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  //Saves the user into the database
+  user.save();
+
+
   //A new resource was created
   res.status(201).json({
     message:"Successful"

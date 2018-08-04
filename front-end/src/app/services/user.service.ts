@@ -21,7 +21,7 @@ export class UserService {
   register(user): void {
     this.http.post<Object>('//localhost:3000/api/users', user)
     .subscribe((responseData) => {
-      console.log(responseData);
+      // do something
     });
   }
 }
