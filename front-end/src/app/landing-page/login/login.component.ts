@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   // A function that will register the user into the database
   // YET TO BE IMPLEMENETED
   register(): void {
-    console.log(this.newUser);
-    this.userService.testFunction();
+    // this.userService.testFunction();
+    this.userService.register(this.newUser);
   }
 
 }

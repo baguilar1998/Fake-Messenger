@@ -1,25 +1,43 @@
 var createError = require('http-errors');
-var express = require('express');
+const express = require('express');
+const bodyParser = require('body-parser');
 var path = require('path');
 
-var app = express();
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
 
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, 'dist/front-end')));
 //app.use('/', express.static(path.join(__dirname, 'dist')));
 
+/**
+ * Allows us to connect to any other server if needed.
+ * Angular is on localhost:4200, while the backend is on
+ * localhost:3000
+ */
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Header","Origin, X-Requested, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
   next();
 });
 
+// Posts a requests (FIND OUT WHY POST ISNT WORKING)
+app.use('/api/users',(req,res,next) => {
+  const message = req.body;
+  console.log(message);
+  //A new resource was created
+  res.status(201).json({
+    message:"Successful"
+  });
+});
 
 // status(200) this will send back the response if
 // the response was successful
-app.use('/api/users', (req,res,next)=>{
+app.get('/api/users', (req,res,next)=>{
     res.status(200).json({text:"This route wdfgdforks"});
 });
 
@@ -36,7 +54,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send(err.status);
+  res.sendStatus(err.status);
 });
 
 module.exports = app;

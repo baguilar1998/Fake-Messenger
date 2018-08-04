@@ -16,4 +16,12 @@ export class UserService {
     });
     window.alert(this.testString);
   }
+
+  // A function that will register the user into the database
+  register(user): void {
+    this.http.post<Object>('//localhost:3000/api/users', user)
+    .subscribe((responseData) => {
+      console.log(responseData);
+    });
+  }
 }
