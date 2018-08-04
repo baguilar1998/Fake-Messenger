@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../typescriptmodels/User';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   private signUp: boolean;
   public newUser: User;
-  constructor() {
+  constructor(private userService: UserService) {
     this.signUp = false;
     this.newUser = new User();
   }
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
   // YET TO BE IMPLEMENETED
   register(): void {
     console.log(this.newUser);
+    this.userService.testFunction();
   }
 
 }
