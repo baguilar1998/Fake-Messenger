@@ -1,11 +1,24 @@
+/**
+ * -----------------------------
+ * Package Imports
+ * -----------------------------
+ */
 const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./models/User');
 //const path = require('path');
 
+
+//Express Import
 const app = express();
+
+/**
+ * -----------------------------
+ * Route Imports
+ * -----------------------------
+ */
+const userRoute = require('./routes/users');
 
 // Connects the application to the database
 mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Main?retryWrites=true")
@@ -26,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 /**
  * Allows us to connect to any other server if needed.
  * Angular is on localhost:4200, while the backend is on
- * localhost:3000
+ * localhost:3000 (CORS)
  */
 app.use((req, res, next) =>{
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -35,39 +48,8 @@ app.use((req, res, next) =>{
   next();
 });
 
-// Posts a requests (FIND OUT WHY POST ISNT WORKING)
-app.post('/api/users',(req,res,next) => {
-
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password
-  });
-
-  //Saves the user into the database
-  user.save();
-
-
-  //A new resource was created
-  res.status(201).json({
-    message:"Successful"
-  });
-
-});
-
-app.get('/api/users', (req,res,next)=>{
-  //User.find({'email':req.email}).then(documents =>{
-    //res.status(200).json({"message":"logged"})
-    //window.alert("Login Succesful");
-  //});
-});
-
-// status(200) this will send back the response if
-// the response was successful
-app.use('/api/users', (req,res,next)=>{
-    res.status(200).json({text:"This route wdfgdforks"});
-});
+//Express Routes for RESTAPI
+app.use(userRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
