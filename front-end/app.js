@@ -36,7 +36,7 @@ app.use((req, res, next) =>{
 });
 
 // Posts a requests (FIND OUT WHY POST ISNT WORKING)
-app.use('/api/users',(req,res,next) => {
+app.post('/api/users',(req,res,next) => {
 
   const user = new User({
     firstName: req.body.firstName,
@@ -56,11 +56,18 @@ app.use('/api/users',(req,res,next) => {
 
 });
 
+app.get('/api/users', (req,res,next)=>{
+  //User.find({'email':req.email}).then(documents =>{
+    //res.status(200).json({"message":"logged"})
+    //window.alert("Login Succesful");
+  //});
+});
+
 // status(200) this will send back the response if
 // the response was successful
-//app.get('/api/users', (req,res,next)=>{
-  //  res.status(200).json({text:"This route wdfgdforks"});
-//});
+app.use('/api/users', (req,res,next)=>{
+    res.status(200).json({text:"This route wdfgdforks"});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

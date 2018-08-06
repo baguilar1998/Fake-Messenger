@@ -10,19 +10,25 @@ export class UserService {
   testString;
   constructor(private http: HttpClient) { }
 
-  testFunction() {
+  /*testFunction() {
     this.http.get<{text: String}>('//localhost:3000/api/users')
     .subscribe((data) => {
       this.testString = data.text;
     });
     window.alert(this.testString);
-  }
+  }*/
 
+  login(email, password) {
+    this.http.get('//localhost:3000/api/users')
+    .subscribe((data) => {
+      console.log('Logging in');
+    });
+  }
   // A function that will register the user into the database
   register(user): void {
-    this.http.post<User>('//localhost:3000/api/users', user)
+    this.http.post('//localhost:3000/api/users', user)
     .subscribe((responseData) => {
-      // do something
+      // some code
     });
   }
 }
