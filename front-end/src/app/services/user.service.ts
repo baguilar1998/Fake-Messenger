@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
+import { User } from '../typescriptmodels/User';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserService {
 
   // A function that will register the user into the database
   register(user): void {
-    this.http.post<Object>('//localhost:3000/api/users', user)
+    this.http.post<User>('//localhost:3000/api/users', user)
     .subscribe((responseData) => {
       // do something
     });

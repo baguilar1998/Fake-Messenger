@@ -1,14 +1,13 @@
-var createError = require('http-errors');
+const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 const User = require('./models/User');
-
-var path = require('path');
+//const path = require('path');
 
 const app = express();
 
+// Connects the application to the database
 mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Main?retryWrites=true")
 .then(()=>{
   console.log("Connected to database");
@@ -29,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
  * Angular is on localhost:4200, while the backend is on
  * localhost:3000
  */
-app.use(function(req, res, next) {
+app.use((req, res, next) =>{
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested, Content-Type, Accept");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
@@ -54,13 +53,14 @@ app.use('/api/users',(req,res,next) => {
   res.status(201).json({
     message:"Successful"
   });
+
 });
 
 // status(200) this will send back the response if
 // the response was successful
-app.get('/api/users', (req,res,next)=>{
-    res.status(200).json({text:"This route wdfgdforks"});
-});
+//app.get('/api/users', (req,res,next)=>{
+  //  res.status(200).json({text:"This route wdfgdforks"});
+//});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
