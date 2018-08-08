@@ -24,7 +24,7 @@ export class UserService {
 
     this.http.post('//localhost:3000/api/users/login', currentUser)
     .subscribe((data) => {
-      console.log('Logging in');
+      console.log(data);
     });
   }
 

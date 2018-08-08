@@ -1,7 +1,7 @@
 const express = require('express');
 // A library that allows use to hash passwords
 const bcrypt = require('bcrypt');
-const jwet = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 
@@ -44,9 +44,9 @@ router.post('/signup',(req,res,next) => {
  * A post function that logs the user in
  */
 router.post('/login',(req,res,next)=>{
+  let fetchedUser;
   User.findOne({email: req.body.Email})
   .then(user =>{
-
     // Rejects auth if the user is not found in the database (email)
     if(!user){
       return res.status(401).json({message:"Auth Failed"});
@@ -59,6 +59,7 @@ router.post('/login',(req,res,next)=>{
      * returns true if the comparison was successful otherwise false
      * and this returns a promise
      */
+    fetchedUser = user;
     return bcrypt.compare(req.body.Password, user.password)
 
   }).then(result => {
@@ -68,19 +69,18 @@ router.post('/login',(req,res,next)=>{
     }
 
     const token = jwt.sign(
-      {email:user.email, userId: user._id},
+      {email:fetchedUser.email, userId: fetchedUser._id},
       'secret_this_should_be_longer',
       {expiresIn:'1h'}
     );
 
+    res.status(200).json({
+      token:token
+    });
+
   }).catch(err =>{
     return res.status(401).json({message:"Auth Failed"});
   })
-
-  //console.log(req.body.Email);
-  //res.status(201).json({
-    //message: "Logged In"
-  //});
 
 });
 

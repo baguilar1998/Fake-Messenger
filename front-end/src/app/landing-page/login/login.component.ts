@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   // Changes the sign up variable depending on what button the user clicks
   setSignUp(): void {
     this.signUp = !this.signUp;
+    this.newUser = new User();
   }
 
   // Checks to see if the user is on the sign up view
