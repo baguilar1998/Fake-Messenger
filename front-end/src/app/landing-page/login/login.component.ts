@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
     this.newUser = new User();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // Changes the sign up variable depending on what button the user clicks
   setSignUp(): void {

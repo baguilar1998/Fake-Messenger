@@ -18,13 +18,29 @@ export class UserService {
     window.alert(this.testString);
   }*/
 
+  /**
+   * A function that logs the user into the meseenger app
+   * @param email the given email from log in
+   * @param password the given password from log in
+   */
   login(email, password) {
-    this.http.get('//localhost:3000/api/users')
+    // Storing the given information from the log in model into an object
+    const currentUser = {
+      Email: email,
+      Password: password
+    };
+
+    this.http.post('//localhost:3000/api/users/login', currentUser)
     .subscribe((data) => {
       console.log('Logging in');
     });
   }
-  // A function that will register the user into the database
+
+  /**
+   * A function that registers a new user into the application
+   * (Stores the user in the database)
+   * @param user a new user
+   */
   register(user): void {
     this.http.post('//localhost:3000/api/users/signup', user)
     .subscribe((responseData) => {

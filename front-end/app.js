@@ -49,7 +49,7 @@ app.use((req, res, next) =>{
 });
 
 //Express Routes for RESTAPI
-app.use(userRoute);
+app.use('/api/users',userRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
