@@ -1,6 +1,7 @@
 const express = require('express');
 // A library that allows use to hash passwords
 const bcrypt = require('bcrypt');
+const jwet = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 
@@ -43,19 +44,44 @@ router.post('/signup',(req,res,next) => {
  * A post function that logs the user in
  */
 router.post('/login',(req,res,next)=>{
-  console.log(req.body.Email);
-  res.status(201).json({
-    message: "Logged In"
-  });
-});
+  User.findOne({email: req.body.Email})
+  .then(user =>{
 
-// status(200) this will send back the response if
-// the response was successful
-//router.get('/', (req,res,next)=>{
-  //User.find().then(documents =>{
-    //res.status(200).json({"message":"logged"})
-    //console.log(documents);
+    // Rejects auth if the user is not found in the database (email)
+    if(!user){
+      return res.status(401).json({message:"Auth Failed"});
+    }
+
+    /**
+     * You can't dehash data, but if you enter in the same input as
+     * the hashed data, it should produce the same hash code.
+     *
+     * returns true if the comparison was successful otherwise false
+     * and this returns a promise
+     */
+    return bcrypt.compare(req.body.Password, user.password)
+
+  }).then(result => {
+    // Sends an Auth Fail reponse if the user didnt type in the correct password
+    if(!result){
+      return res.status(401).json({message:"Auth Failed"});
+    }
+
+    const token = jwt.sign(
+      {email:user.email, userId: user._id},
+      'secret_this_should_be_longer',
+      {expiresIn:'1h'}
+    );
+
+  }).catch(err =>{
+    return res.status(401).json({message:"Auth Failed"});
+  })
+
+  //console.log(req.body.Email);
+  //res.status(201).json({
+    //message: "Logged In"
   //});
-//});
+
+});
 
 module.exports = router;
