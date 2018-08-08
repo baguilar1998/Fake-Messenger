@@ -26,7 +26,7 @@ export class UserService {
   }
   // A function that will register the user into the database
   register(user): void {
-    this.http.post('//localhost:3000/api/users', user)
+    this.http.post('//localhost:3000/api/users/signup', user)
     .subscribe((responseData) => {
       // some code
     });

@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 
 // Posts a requests (FIND OUT WHY POST ISNT WORKING)
-router.post('/api/users',(req,res,next) => {
+router.post('/api/users/signup',(req,res,next) => {
 
   const user = new User({
     firstName: req.body.firstName,
