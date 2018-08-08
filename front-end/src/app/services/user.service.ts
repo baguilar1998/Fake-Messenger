@@ -7,16 +7,7 @@ import { User } from '../typescriptmodels/User';
 })
 export class UserService {
 
-  testString;
   constructor(private http: HttpClient) { }
-
-  /*testFunction() {
-    this.http.get<{text: String}>('//localhost:3000/api/users')
-    .subscribe((data) => {
-      this.testString = data.text;
-    });
-    window.alert(this.testString);
-  }*/
 
   /**
    * A function that logs the user into the meseenger app
@@ -24,6 +15,7 @@ export class UserService {
    * @param password the given password from log in
    */
   login(email, password) {
+
     // Storing the given information from the log in model into an object
     const currentUser = {
       Email: email,
@@ -42,9 +34,9 @@ export class UserService {
    * @param user a new user
    */
   register(user): void {
-    this.http.post('//localhost:3000/api/users/signup', user)
+    this.http.post<User>('//localhost:3000/api/users/signup', user)
     .subscribe((responseData) => {
-      // some code
+      console.log('Creating new user');
     });
   }
 }

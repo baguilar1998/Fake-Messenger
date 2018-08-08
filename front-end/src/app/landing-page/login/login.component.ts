@@ -29,12 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   // A function that will register the user into the database
-  // YET TO BE IMPLEMENETED
   register(): void {
-    // this.userService.testFunction();
     this.userService.register(this.newUser);
   }
 
+  // A function that logs the user in to the application
   login(): void {
     this.userService.login(this.newUser.email, this.newUser.password);
   }
