@@ -10,13 +10,17 @@ import { LoginComponent } from './landing-page/login/login.component';
 import { UserService } from './services/user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { MessagesTabComponent } from './main-page/messages-tab/messages-tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MainPageComponent,
+    MessagesTabComponent
   ],
   imports: [
     BrowserModule,
