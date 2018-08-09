@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MessagesTabComponent } from './main-page/messages-tab/messages-tab.component';
+import { ChatTabComponent } from './main-page/chat-tab/chat-tab.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MessagesTabComponent } from './main-page/messages-tab/messages-tab.comp
     LoginComponent,
     NotFoundComponent,
     MainPageComponent,
-    MessagesTabComponent
+    MessagesTabComponent,
+    ChatTabComponent
   ],
   imports: [
     BrowserModule,
