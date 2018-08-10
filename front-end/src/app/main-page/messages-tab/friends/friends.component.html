@@ -1,15 +1,15 @@
-<div id="message" class="container-fluid" style="padding:5px">
+<div *ngFor="let f of friends" id="message" class="container-fluid" style="padding:5px">
   <div class="row">
     <div class="col-sm-10">
       <div id="content">
         <img style="float:left;" src="../../../../assets/avatar.png" alt="Avatar">
         <div style="float:left;padding-left:10px">
-            <h3>Name</h3>
+            <h3>{{f}}</h3>
             <p>Message</p>
         </div>
       </div>
     </div>
-    <div class="col-sm-2 text-right">
+    <div class="col-sm-2 text-right" style="color:dodgerblue">
       Time
     </div>
   </div>

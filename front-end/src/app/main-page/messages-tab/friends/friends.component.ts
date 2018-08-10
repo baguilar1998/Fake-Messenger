@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsComponent implements OnInit {
 
+  friends = ['Brian Aguilar', 'John Smith'];
   constructor() { }
 
   ngOnInit() {
