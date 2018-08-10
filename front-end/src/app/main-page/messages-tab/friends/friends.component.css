@@ -1,0 +1,8 @@
+#message:hover{
+  cursor: pointer;
+  background-color:#F2F2F2;
+}
+img {
+  border-radius: 50%;
+  width:15%;
+}

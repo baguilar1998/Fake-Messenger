@@ -1,13 +1,15 @@
 <!-- Messenger Toolbar-->
 <div class="row" id="messagenav">
   <div class="col-lg-2">
-    <span style="cursor: pointer"><img src="../../../assets/icons/gear.PNG" alt="Settings"></span>
+    <div class="dropdown">
+      <span style="cursor: pointer"><img src="../../../assets/icons/gear.PNG" alt="Settings"></span>
+    </div>
   </div>
   <div class="col-lg-8 text-center">
     <h2 style="font-size:15pt">Messenger</h2>
   </div>
   <div class="col-lg-2">
-    <span style="cursor: pointer"><img src="../../../assets/icons/new-message.PNG" alt="Settings"></span>
+    <span style="cursor: pointer"><img src="../../../assets/icons/new-message.PNG" alt="New Message"></span>
   </div>
 </div>
 <!-- Search Bar-->
@@ -18,9 +20,12 @@
     </div>
   </div>
 <!-- List of Messages-->
-<div class="row" id="messages">
+<div class="row flex-fill w-100" id="messages">
   <div class="col-lg-12" id="scroll">
-
+    <app-friends></app-friends>
+    <app-friends></app-friends>
+    <app-friends></app-friends>
+    <app-friends></app-friends>
   </div>
 </div>
 </div>

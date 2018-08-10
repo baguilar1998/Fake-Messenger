@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MessagesTabComponent } from './main-page/messages-tab/messages-tab.component';
 import { ChatTabComponent } from './main-page/chat-tab/chat-tab.component';
+import { FriendsComponent } from './main-page/messages-tab/friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChatTabComponent } from './main-page/chat-tab/chat-tab.component';
     NotFoundComponent,
     MainPageComponent,
     MessagesTabComponent,
-    ChatTabComponent
+    ChatTabComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
