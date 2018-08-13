@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
+html,body{
+  max-height: 100%
+}
 /*
 --------------------------------------------
 Main Font Style For The Web App

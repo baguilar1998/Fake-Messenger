@@ -7,7 +7,17 @@ import { User } from '../typescriptmodels/User';
 })
 export class UserService {
 
+  private token: String;
+  private currentUser;
+
   constructor(private http: HttpClient) { }
+
+  /**
+   * @return a token (user auth)
+   */
+  getToken(): String {
+    return this.token;
+  }
 
   /**
    * A function that logs the user into the meseenger app
@@ -22,9 +32,10 @@ export class UserService {
       Password: password
     };
 
-    this.http.post('//localhost:3000/api/users/login', currentUser)
+    this.http.post<{token: String}>('//localhost:3000/api/users/login', currentUser)
     .subscribe((data) => {
-      console.log(data);
+      const token = data.token;
+      this.token = token;
     });
   }
 
