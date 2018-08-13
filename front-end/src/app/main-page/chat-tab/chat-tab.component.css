@@ -1,3 +1,10 @@
 img:hover {
   opacity:0.5;
 }
+.form-control {
+  border: 0;
+}
+.no-border {
+  border: 0;
+  box-shadow: none;
+}
