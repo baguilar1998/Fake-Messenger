@@ -1,11 +1,32 @@
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <h4 class="modal-title">Settings</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cancel click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <p>Hello!</p>
+  <div  class="text-center">
+    <img src="../../../assets/avatar.png">
+  </div>
+  <div class="form-group">
+    <h2>First Name</h2>
+    <input type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
+  </div>
+  <div class="form-group">
+    <h2>Last Name</h2>
+    <input type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
+  </div>
+  <div class="form-group">
+    <h2>Email</h2>
+    <input type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
+  </div>
+  <div class="form-group">
+    <h2>Password</h2>
+    <input type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
+  </div>
+  <div class="text-center">
+      <button type="button" class="btn btn-outline-danger">Log Out</button>
+  </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
