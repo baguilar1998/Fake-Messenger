@@ -86,4 +86,10 @@ router.post('/login',(req,res,next)=>{
 
 });
 
+/**
+ * Test function to test out middle ware
+ */
+router.post('/test',checkAuth,(req,res,next)=>{
+  res.json({message:"This worked"});
+});
 module.exports = router;

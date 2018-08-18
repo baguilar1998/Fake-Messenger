@@ -50,4 +50,15 @@ export class UserService {
       console.log('Creating new user');
     });
   }
+
+  /**
+   * Test function to check to see if the authentication worked or not
+   */
+  test(): void {
+    this.http.post<String>('//localhost:3000/api/users/test', 'Test')
+    .subscribe((data) => {
+      console.log(data);
+    });
+  }
+
 }
