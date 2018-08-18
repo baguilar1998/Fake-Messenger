@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.authListenerSub = this.userService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
       this.authenticated = isAuthenticated;
+      this.authenticated = this.userService.getAuthStatus();
     });
   }
 
@@ -24,4 +25,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.authListenerSub.unsubscribe();
   }
 
+  logout() {
+    this.activeModal.close();
+    this.userService.logout();
+  }
 }
