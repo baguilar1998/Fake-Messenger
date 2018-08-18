@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
 import { User } from '../typescriptmodels/User';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import { User } from '../typescriptmodels/User';
 export class UserService {
 
   private token: String;
+  // Checks to see if the user is authenticated
+  private authStatusListener = new Subject<boolean>();
   private currentUser;
 
   constructor(private http: HttpClient) { }
@@ -19,6 +22,13 @@ export class UserService {
     return this.token;
   }
 
+  /**
+   * @return authstatuslistener as an observable
+   * so that no other values are added
+   */
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
   /**
    * A function that logs the user into the meseenger app
    * @param email the given email from log in
@@ -36,6 +46,7 @@ export class UserService {
     .subscribe((data) => {
       const token = data.token;
       this.token = token;
+      this.authStatusListener.next(true);
     });
   }
 
