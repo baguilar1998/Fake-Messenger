@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { MessagesTabComponent } from './main-page/messages-tab/messages-tab.comp
 import { ChatTabComponent } from './main-page/chat-tab/chat-tab.component';
 import { FriendsComponent } from './main-page/messages-tab/friends/friends.component';
 import { SettingsComponent } from './modals/settings/settings.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { SettingsComponent } from './modals/settings/settings.component';
     NgbModule,
     AppRoutingModule
   ],
-  providers: [UserService],
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [SettingsComponent]
 })
