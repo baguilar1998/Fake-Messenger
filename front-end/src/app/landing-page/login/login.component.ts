@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+  invalid: boolean;
   private signUp: boolean;
   public newUser: User;
   constructor(private userService: UserService) {
@@ -37,6 +38,8 @@ export class LoginComponent implements OnInit {
   // A function that logs the user in to the application
   login(): void {
     this.userService.login(this.newUser.email, this.newUser.password);
+    if (!this.userService.getAuthStatus()) {
+      this.invalid = true;
+    }
   }
-
 }
