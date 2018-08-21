@@ -82,27 +82,4 @@ export class UserService {
       console.log('Creating new user');
     });
   }
-
-  /*getUser() {
-    if (this.currentUser === null || this.token === null) {
-      throw new Error ('User not logged in');
-    }
-    let userData;
-    this.http.post<{user: Object}>('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
-      userData = data.user;
-    });
-
-    return userData;
-  }*/
-
-  /**
-   * Test function to check to see if the authentication worked or not
-   */
-  test(): void {
-    this.http.post<String>('//localhost:3000/api/users/test', 'Test')
-    .subscribe((data) => {
-      console.log(data);
-    });
-  }
-
 }
