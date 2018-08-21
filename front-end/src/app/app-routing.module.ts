@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MainPageComponent } from './main-page/main-page.component';
-
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -11,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    component: MainPageComponent
+    component: MainPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -21,7 +22,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 
 export class AppRoutingModule {}
