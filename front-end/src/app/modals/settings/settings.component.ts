@@ -11,6 +11,7 @@ import { Subscription } from '../../../../node_modules/rxjs';
 export class SettingsComponent implements OnInit, OnDestroy {
   authenticated = false;
   private authListenerSub: Subscription;
+  user;
   constructor(private activeModal: NgbActiveModal, private userService: UserService) { }
 
   ngOnInit() {
@@ -18,6 +19,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     .subscribe(isAuthenticated => {
       this.authenticated = isAuthenticated;
       this.authenticated = this.userService.getAuthStatus();
+      // this.user = this.userService.getUser();
     });
   }
 

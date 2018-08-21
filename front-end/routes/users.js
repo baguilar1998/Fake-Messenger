@@ -86,6 +86,19 @@ router.post('/login',(req,res,next)=>{
 
 });
 
+/*router.post('/getUser',checkAuth, (req,res,next)=>{
+  let fetchedUser;
+  User.findOne({email: req.body.Email})
+  .then(user =>{
+    if(!user){
+      return res.status(401).json({message:"User not found"});
+    }
+    fetchedUser = user;
+  });
+  res.status(200).json({user:fectedUser});
+
+});*/
+
 /**
  * Test function to test out middle ware
  */
