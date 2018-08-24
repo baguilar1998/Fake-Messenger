@@ -13,9 +13,4 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  testMiddleWare() {
-    this.userService.test();
-  }
-
-
 }
