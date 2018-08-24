@@ -49,21 +49,35 @@ export class UserService {
       Password: password
     };
 
-    this.http.post<{token: String, expiresIn: number}>('//localhost:3000/api/users/login', this.currentUser)
+    this.http.post<{token: string, expiresIn: number}>('//localhost:3000/api/users/login', this.currentUser)
     .subscribe((data) => {
       const token = data.token;
       this.token = token;
       // Only authenticates a user if the token is valid
       if (token) {
         const expiresInDuration = data.expiresIn;
-        this.tokenTimer = setTimeout(() => {
-          this.logout();
-        }, expiresInDuration * 1000);
+        this.setAuthTimer(expiresInDuration);
         this.authStatusListener.next(true);
+        const now = new Date();
+        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate);
         this.authenticated = true;
         this.router.navigate(['/main']);
       }
     });
+  }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    const now = new Date();
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    if (expiresIn > 0 || expiresIn != null) {
+      this.token = authInformation.token;
+      this.authenticated = true;
+      this.setAuthTimer(expiresIn / 1000);
+      this.authStatusListener.next(true);
+      this.router.navigate(['/main']);
+    }
   }
 
   /**
@@ -73,6 +87,7 @@ export class UserService {
     this.token = null;
     this.authenticated = false;
     this.authStatusListener.next(false);
+    this.clearAuthData();
     clearTimeout(this.tokenTimer);
     this.router.navigate(['/']);
   }
@@ -87,5 +102,47 @@ export class UserService {
     .subscribe((responseData) => {
       console.log('Creating new user');
     });
+  }
+
+  /**
+   * A helper function that sets the Node.js timer
+   * @param duration the current time
+   */
+  private setAuthTimer(duration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000);
+  }
+
+  /**
+   * A helper method to keep the user logged in if they haven't log
+   * out of their account or if the token hasn't expired using local
+   * storage
+   * @param token the current user that's logged in
+   * @param expirationDate the duration of the token
+   */
+  private saveAuthData(token: string, expirationDate: Date) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('date', expirationDate.toISOString());
+  }
+
+  /**
+   * Clears any auth data from the local storage
+   */
+  private clearAuthData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('date');
+  }
+
+  /**
+   * Gets the authentication data from the local storage
+   */
+  private getAuthData() {
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('date');
+    if (!token || !expirationDate) {
+      return;
+    }
+    return {token: token, expirationDate: new Date(expirationDate)};
   }
 }
