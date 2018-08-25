@@ -87,4 +87,24 @@ router.post('/login',(req,res,next)=>{
 
 });
 
+/**
+ * A post function that retrevies the current users information
+ */
+router.post('/getUser', checkAuth, (req,res)=>{
+  //Querys the current user
+  User.findOne({email:req.body.Email})
+  .then(user =>{
+    //Checks to see if the user exists
+    if(!user){
+      return res.status(401).json({message:"Auth Failed"});
+    }
+    //Sends a json object if the user is found
+    res.status(200).json({
+      currentUser:user,
+      message: "Got User"
+    })
+  });
+
+});
+
 module.exports = router;

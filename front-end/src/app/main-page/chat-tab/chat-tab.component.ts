@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-chat-tab',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatTabComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.autoAuthUser();
+  }
+
+  testFunction() {
+    this.userService.getUser();
   }
 
 }

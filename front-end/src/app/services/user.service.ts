@@ -105,6 +105,17 @@ export class UserService {
   }
 
   /**
+   * A function that retrieves the user data
+   * @return the current user that is logged in
+   */
+  getUser() {
+    this.http.post('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
+      console.log(data.currentUser);
+      const temp = data.currentUser;
+      console.log(temp);
+    });
+  }
+  /**
    * A helper function that sets the Node.js timer
    * @param duration the current time
    */
