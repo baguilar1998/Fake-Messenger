@@ -90,7 +90,7 @@ router.post('/login',(req,res,next)=>{
 /**
  * A post function that retrevies the current users information
  */
-router.post('/getUser', checkAuth, (req,res)=>{
+router.post('/getUser', (req,res)=>{
   //Querys the current user
   User.findOne({email:req.body.Email})
   .then(user =>{
@@ -106,5 +106,4 @@ router.post('/getUser', checkAuth, (req,res)=>{
   });
 
 });
-
 module.exports = router;

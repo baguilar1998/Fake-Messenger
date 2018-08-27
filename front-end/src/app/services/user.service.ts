@@ -101,6 +101,7 @@ export class UserService {
     this.http.post<User>('//localhost:3000/api/users/signup', user)
     .subscribe((responseData) => {
       console.log('Creating new user');
+      this.login(user.email, user.password);
     });
   }
 
@@ -109,12 +110,12 @@ export class UserService {
    * @return the current user that is logged in
    */
   getUser() {
-    this.http.post('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
-      console.log(data.currentUser);
-      const temp = data.currentUser;
-      console.log(temp);
+    this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
+      // console.log(data.currentUser);
+      // return data;
     });
   }
+
   /**
    * A helper function that sets the Node.js timer
    * @param duration the current time
@@ -156,4 +157,5 @@ export class UserService {
     }
     return {token: token, expirationDate: new Date(expirationDate)};
   }
+
 }
