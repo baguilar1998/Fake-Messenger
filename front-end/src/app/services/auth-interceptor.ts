@@ -1,5 +1,5 @@
-import { HttpInterceptor, HttpRequest, HttpHandler } from '../../../node_modules/@angular/common/http';
-import { Injectable } from '../../../node_modules/@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 
 @Injectable()

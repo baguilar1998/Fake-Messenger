@@ -17,6 +17,7 @@ import { ChatTabComponent } from './main-page/chat-tab/chat-tab.component';
 import { FriendsComponent } from './main-page/messages-tab/friends/friends.component';
 import { SettingsComponent } from './modals/settings/settings.component';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { FriendService } from './services/friend.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
     NgbModule,
     AppRoutingModule
   ],
-  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, FriendService],
   bootstrap: [AppComponent],
   entryComponents: [SettingsComponent]
 })
