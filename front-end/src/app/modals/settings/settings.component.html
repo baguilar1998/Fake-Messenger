@@ -10,19 +10,19 @@
   </div>
   <div class="form-group">
     <h2>First Name</h2>
-    <input type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
+    <input [(ngModel)]="user.firstName" type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
   </div>
   <div class="form-group">
     <h2>Last Name</h2>
-    <input type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
+    <input [(ngModel)]="user.lastName" type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
   </div>
   <div class="form-group">
     <h2>Email</h2>
-    <input type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
+    <input [(ngModel)]="user.email" type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
   </div>
   <div class="form-group">
     <h2>Password</h2>
-    <input type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
+    <input [(ngModel)]="user.password" type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
   </div>
   <div class="text-center">
       <button (click)="logout()" type="button" class="btn btn-outline-danger">Log Out</button>

@@ -20,11 +20,6 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubcribe();
-  }
-
-  testFunction() {
-    this.userService.getUser();
   }
 
 }

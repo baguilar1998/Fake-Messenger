@@ -13,7 +13,8 @@ export class UserService {
   // Checks to see if the user is authenticated
   private authStatusListener = new Subject<boolean>();
   private authenticated = false;
-  private currentUser;
+  private newUser;
+  currentUser;
   private tokenTimer: any;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -44,13 +45,15 @@ export class UserService {
   login(email, password) {
 
     // Storing the given information from the log in model into an object
-    this.currentUser = {
+    this.newUser = {
       Email: email,
       Password: password
     };
 
-    this.http.post<{token: string, expiresIn: number}>('//localhost:3000/api/users/login', this.currentUser)
+    // Sets up the token for the user
+    this.http.post<{token: string, expiresIn: number}>('//localhost:3000/api/users/login', this.newUser)
     .subscribe((data) => {
+      console.log('Logging user in');
       const token = data.token;
       this.token = token;
       // Only authenticates a user if the token is valid
@@ -65,6 +68,10 @@ export class UserService {
         this.router.navigate(['/main']);
       }
     });
+
+    this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
+    .subscribe((data) => this.currentUser = data.currentUser);
+
   }
 
   autoAuthUser() {
@@ -108,13 +115,13 @@ export class UserService {
   /**
    * A function that retrieves the user data
    * @return the current user that is logged in
-   */
+   *
   getUser() {
     this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
       // console.log(data.currentUser);
       // return data;
     });
-  }
+  }*.
 
   /**
    * A helper function that sets the Node.js timer
