@@ -1,12 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Subject } from '../../../node_modules/rxjs';
+import { User } from '../typescriptmodels/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
 
-  private friends = ['Brian Aguilar', 'John Smith', 'Adam Johnson', 'Tim Jones', 'Ricky Ricardo'];
+  private friends: User[] = [{
+    _id: 'sdfjisdo',
+    firstName: 'Brian',
+    lastName: 'Aguilar',
+    email: 'brianaguilar1998@gmail.com',
+    password: 'hashed'
+  },
+  {
+    _id: 'sdfjisdo',
+    firstName: 'Adam',
+    lastName: 'Smith',
+    email: 'asmith@yahoo.com',
+    password: 'hashed'
+  }];
   private selectedFriend;
   selectedFriendChange: Subject<string> = new Subject<string>();
 
