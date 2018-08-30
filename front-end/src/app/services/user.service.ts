@@ -69,6 +69,9 @@ export class UserService {
       }
     });
 
+    /**
+     * Gets the user that logged in
+     */
     this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
     .subscribe((data) => {
       console.log(data.currentUser);
@@ -87,6 +90,35 @@ export class UserService {
 
   }
 
+  updateUser(user) {
+
+    this.http.post('//localhost:3000/api/users/updateUser', user).subscribe((data) => {
+      console.log('Updating user');
+      this.newUser = {
+        Email: user.email
+      };
+      this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
+      .subscribe((data) => {
+        console.log(data.currentUser);
+        const temp = data.currentUser;
+        const user: User = {
+          _id: temp._id,
+          firstName: temp.firstName,
+          lastName: temp.lastName,
+          email: temp.email,
+          password: temp.password
+        };
+        this.currentUser = user;
+        this.saveUser(user);
+      });
+    });
+
+  }
+
+  /**
+   * Method that auto authenticates the user
+   * (Keeps the user logged in as long as they haven't logged out)
+   */
   autoAuthUser() {
     const authInformation = this.getAuthData();
     const now = new Date();
@@ -126,12 +158,12 @@ export class UserService {
     });
   }
 
+
   /**
-   * A function that retrieves the user data
-   * @return the current user that is logged in
+   * Helper methodSaves the user into the local storage
+   * @param user the user that logged in
    */
   private saveUser(user) {
-    // this.currentUser = JSON.parse(localStorage.getItem('user'));
     localStorage.setItem('user', JSON.stringify(user));
   }
 

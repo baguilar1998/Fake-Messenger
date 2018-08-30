@@ -104,6 +104,26 @@ router.post('/getUser', (req,res)=>{
       message: "Got User"
     })
   });
-
 });
+
+/**
+ * A post function that updates any user information
+ */
+router.post('/updateUser', (req,res)=>{
+  //Gets the Query
+  User.findOne({_id:req.body._id})
+  .then(user=>{
+    //Checks to see if the user exists
+    if(!user){
+      return res.status(401).json({message:"Auth Failed"});
+    }
+
+    User.update(user,req.body,function(err){
+      if(err)throw err;
+    });
+
+    res.status(200).json({message:"User updated"});
+
+  });
+})
 module.exports = router;
