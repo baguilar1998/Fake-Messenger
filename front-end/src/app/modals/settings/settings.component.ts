@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit, OnDestroy {
-  authenticated = false;
+  authenticated = true;
   user;
   private authListenerSub: Subscription;
   constructor(private activeModal: NgbActiveModal, private userService: UserService) {

@@ -70,7 +70,20 @@ export class UserService {
     });
 
     this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
-    .subscribe((data) => this.currentUser = data.currentUser);
+    .subscribe((data) => {
+      console.log(data.currentUser);
+      const temp = data.currentUser;
+      const user: User = {
+        _id: temp._id,
+        firstName: temp.firstName,
+        lastName: temp.lastName,
+        email: temp.email,
+        password: temp.password
+      };
+      this.currentUser = user;
+      this.saveUser(user);
+    });
+
 
   }
 
@@ -79,6 +92,7 @@ export class UserService {
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0 || expiresIn != null) {
+      this.currentUser = authInformation.user;
       this.token = authInformation.token;
       this.authenticated = true;
       this.setAuthTimer(expiresIn / 1000);
@@ -115,13 +129,11 @@ export class UserService {
   /**
    * A function that retrieves the user data
    * @return the current user that is logged in
-   *
-  getUser() {
-    this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.currentUser).subscribe((data) => {
-      // console.log(data.currentUser);
-      // return data;
-    });
-  }*.
+   */
+  private saveUser(user) {
+    // this.currentUser = JSON.parse(localStorage.getItem('user'));
+    localStorage.setItem('user', JSON.stringify(user));
+  }
 
   /**
    * A helper function that sets the Node.js timer
@@ -149,6 +161,7 @@ export class UserService {
    * Clears any auth data from the local storage
    */
   private clearAuthData() {
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('date');
   }
@@ -157,12 +170,13 @@ export class UserService {
    * Gets the authentication data from the local storage
    */
   private getAuthData() {
+    const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('date');
     if (!token || !expirationDate) {
       return;
     }
-    return {token: token, expirationDate: new Date(expirationDate)};
+    return {token: token, expirationDate: new Date(expirationDate), user: user};
   }
 
 }
