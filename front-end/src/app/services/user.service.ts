@@ -90,17 +90,20 @@ export class UserService {
 
   }
 
+  /**
+   * Updates any user information
+   * @param user the user that is logged in
+   */
   updateUser(user) {
-
     this.http.post('//localhost:3000/api/users/updateUser', user).subscribe((data) => {
       console.log('Updating user');
       this.newUser = {
         Email: user.email
       };
       this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
-      .subscribe((data) => {
-        console.log(data.currentUser);
-        const temp = data.currentUser;
+      .subscribe((res) => {
+        console.log(res.currentUser);
+        const temp = res.currentUser;
         const user: User = {
           _id: temp._id,
           firstName: temp.firstName,

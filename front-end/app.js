@@ -19,6 +19,7 @@ const app = express();
  * -----------------------------
  */
 const userRoute = require('./routes/users');
+const friendsRoute = require('./routes/friends');
 
 // Connects the application to the database
 mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Main?retryWrites=true")
@@ -50,6 +51,7 @@ app.use((req, res, next) =>{
 
 //Express Routes for RESTAPI
 app.use('/api/users',userRoute);
+app.use('/api/friends',friendsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
