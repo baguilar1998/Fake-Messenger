@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class FriendService {
 
-  private friends: User[] = [{
+ /* private friends: User[] = [{
     _id: 'sdfjisdo',
     firstName: 'Brian',
     lastName: 'Aguilar',
@@ -23,31 +23,15 @@ export class FriendService {
     lastName: 'Smith',
     email: 'asmith@yahoo.com',
     password: 'hashed'
-  }];
-  // private friends: User[];
+  }];*/
+  private friends: User[];
   private selectedFriend;
   selectedFriendChange: Subject<string> = new Subject<string>();
+  friendsUpdated: Subject<User[]> = new Subject<User[]>();
 
   constructor(private http: HttpClient) {
-    /*this.http.get<{allUsers: any}>('//localhost:3000/api/friends/allUsers')
-    .pipe(map((data => {
-      return data.allUsers.map(res => {
-        return {
-          _id: res._id,
-          firstName: res.firstName,
-          lastName: res.lastName,
-          email: res.email,
-          password: res.password
-        };
-      });
-    })))
-    .subscribe((data) => {
-      this.friends = data;
-      console.log(this.friends);
-      this.setSelectedFriend(this.friends[0]);
-      console.log(this.selectedFriend);
-    });*/
-    this.setSelectedFriend(this.friends[0]);
+    this.fetchFriends();
+    // this.setSelectedFriend(this.friends[0]);
    }
 
 
@@ -72,6 +56,27 @@ export class FriendService {
    */
   getFriends() {
     return this.friends;
+  }
+
+  fetchFriends() {
+    return this.http.get<{allUsers: any}>('//localhost:3000/api/friends/allUsers');
+    /*.pipe(map((data => {
+      return data.allUsers.map(res => {
+        return {
+          _id: res._id,
+          firstName: res.firstName,
+          lastName: res.lastName,
+          email: res.email,
+          password: res.password
+        };
+      });
+    })));
+    .subscribe((data) => {
+      this.friends = data;
+      console.log(this.friends);
+      this.setSelectedFriend(this.friends[0]);
+      console.log(this.selectedFriend);
+    });*/
   }
 
 }

@@ -8,7 +8,7 @@ router.get('/allUsers', (req,res)=>{
       res.status(400).json({message:"No users created"});
     }
 
-    res.status(201).json({
+    res.status(200).json({
       allUsers : users,
       message: "Got users"
     })

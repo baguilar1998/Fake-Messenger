@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendService } from '../../../services/friend.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-friends',
@@ -8,11 +9,29 @@ import { FriendService } from '../../../services/friend.service';
 })
 export class FriendsComponent implements OnInit {
 
-  friends = this.friendService.getFriends();
-  constructor(private friendService: FriendService) { }
+  friends;
+  subscription;
+  constructor(private friendService: FriendService) {
+    this.friendService.fetchFriends().pipe(map((data => {
+      return data.allUsers.map(res => {
+        return {
+          _id: res._id,
+          firstName: res.firstName,
+          lastName: res.lastName,
+          email: res.email,
+          password: res.password
+        };
+      });
+    })))
+    .subscribe((data) => {
+      this.friends = data;
+      console.log(this.friends);
+    });
+   }
 
   ngOnInit() {
   }
+
 
   getFriend(friend) {
     this.friendService.setSelectedFriend(friend);
