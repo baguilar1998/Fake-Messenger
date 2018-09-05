@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
+import {mimeType} from './mime-type.validator';
 
 @Component({
   selector: 'app-settings',
