@@ -26,6 +26,7 @@ export class FriendsComponent implements OnInit {
     .subscribe((data) => {
       this.friends = data;
       console.log(this.friends);
+      this.friendService.setSelectedFriend(this.friends[0]);
     });
    }
 
