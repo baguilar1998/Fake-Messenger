@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 export class SettingsComponent implements OnInit, OnDestroy {
   authenticated = true;
   user;
+  picture;
+  profilePreview = '../../../assets/avatar.png';
   private authListenerSub: Subscription;
   constructor(private activeModal: NgbActiveModal, private userService: UserService) {
     this.user = userService.currentUser;
@@ -28,13 +30,34 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.authListenerSub.unsubscribe();
   }
 
+  /**
+   * Updates the user in the database
+   */
   update() {
     this.userService.updateUser(this.user);
     this.activeModal.close();
   }
 
+  /**
+   * Logs the user out
+   */
   logout() {
     this.activeModal.close();
     this.userService.logout();
+  }
+
+  /**
+   *
+   * @param event user profile picture
+   */
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.profilePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
+    this.picture = file;
+
   }
 }

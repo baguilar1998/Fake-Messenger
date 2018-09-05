@@ -6,8 +6,8 @@
 </div>
 <div class="modal-body">
   <div  class="text-center">
-    <img src="../../../assets/avatar.png"><br><br>
-    <input type="file" #filePicker>
+    <img [src]=profilePreview ><br><br>
+    <input type="file" #filePicker (change)="onImagePicked($event)">
   </div>
   <div class="form-group">
     <h2>First Name</h2>
