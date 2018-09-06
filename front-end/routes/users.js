@@ -7,6 +7,33 @@ const User = require('../models/User');
 // Middleware
 const checkAuth = require('../middleware/check-auth');
 
+//Library to extract image data
+const multer = require("multer");
+
+const MIME_TYPE_MAP = {
+  'image/png' : 'png',
+  'image/jpeg' : 'jpg',
+  'image/jpg' : 'jpg'
+};
+
+const storage = multer.diskStorage({
+  //Runs when a function tries to save a file
+  destination: (req, file, cb) => {
+    // Checks to see if we have a valid file type
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error("Invalid mimetype");
+    if (isValid){
+      error = null;
+    }
+    cb(error, '../images');
+  },
+  filename : (req,file,cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  }
+});
+
 /**
  * A post function that registers a new user
  * into the database
@@ -109,7 +136,7 @@ router.post('/getUser', (req,res)=>{
 /**
  * A post function that updates any user information
  */
-router.post('/updateUser', (req,res)=>{
+router.post('/updateUser', multer(storage).single("image"), (req,res)=>{
   //Gets the Query
   User.findOne({_id:req.body._id})
   .then(user=>{
