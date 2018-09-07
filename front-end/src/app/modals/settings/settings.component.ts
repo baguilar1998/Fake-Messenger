@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 import {mimeType} from './mime-type.validator';
+import { FormGroup, FormControl, Validators } from '../../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -15,11 +16,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
   picture;
   profilePreview = '../../../assets/avatar.png';
   private authListenerSub: Subscription;
+  form: FormGroup;
   constructor(private activeModal: NgbActiveModal, private userService: UserService) {
     this.user = userService.currentUser;
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      'firstName': new FormControl(this.user.firstName, {validators: [Validators.required]}),
+      'lastName': new FormControl(this.user.lastName, {validators: [Validators.required]}),
+      'email': new FormControl(this.user.email, {validators: [Validators.required]}),
+      'password': new FormControl(this.user.password, {validators: [Validators.required]})
+    });
     this.authListenerSub = this.userService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
       this.authenticated = isAuthenticated;
@@ -35,6 +43,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
    * Updates the user in the database
    */
   update() {
+    this.user.firstName = this.form.value.firstName;
+    this.user.lastName = this.form.value.lastName;
+    this.user.email = this.form.value.email;
+    this.user.password = this.form.value.password;
     this.userService.updateUser(this.user, this.picture);
     this.activeModal.close();
   }

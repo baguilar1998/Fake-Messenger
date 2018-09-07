@@ -4,26 +4,26 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
+<div [formGroup]="form" class="modal-body">
   <div  class="text-center">
     <img [src]=profilePreview ><br><br>
     <input type="file" #filePicker (change)="onImagePicked($event)">
   </div>
   <div class="form-group">
     <h2>First Name</h2>
-    <input [(ngModel)]="user.firstName" type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
+    <input formControlName="firstName" type="text" class="form-control" placeholder="First Name" style="height:45px" required="true">
   </div>
   <div class="form-group">
     <h2>Last Name</h2>
-    <input [(ngModel)]="user.lastName" type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
+    <input formControlName="lastName" type="text" class="form-control"  placeholder="Last Name" style="height:45px" required="true">
   </div>
   <div class="form-group">
     <h2>Email</h2>
-    <input [(ngModel)]="user.email" type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
+    <input formControlName="email" type="text" class="form-control"  placeholder="Email" style="height:45px" required="true" >
   </div>
   <div class="form-group">
     <h2>Password</h2>
-    <input [(ngModel)]="user.password" type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
+    <input formControlName="password" type="password" class="form-control"  placeholder="Password" style="height:45px" required="true">
   </div>
   <div class="text-center">
       <button (click)="update()" type="button" class="btn btn-outline-primary">Update</button>
