@@ -13,7 +13,6 @@ import { FormGroup, FormControl, Validators } from '../../../../node_modules/@an
 export class SettingsComponent implements OnInit, OnDestroy {
   authenticated = true;
   user;
-  picture;
   profilePreview = '../../../assets/avatar.png';
   private authListenerSub: Subscription;
   form: FormGroup;
@@ -26,7 +25,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       'firstName': new FormControl(this.user.firstName, {validators: [Validators.required]}),
       'lastName': new FormControl(this.user.lastName, {validators: [Validators.required]}),
       'email': new FormControl(this.user.email, {validators: [Validators.required]}),
-      'password': new FormControl(this.user.password, {validators: [Validators.required]})
+      'password': new FormControl(this.user.password, {validators: [Validators.required]}),
+      'image': new FormControl(null, {asyncValidators: [mimeType]})
     });
     this.authListenerSub = this.userService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.user.lastName = this.form.value.lastName;
     this.user.email = this.form.value.email;
     this.user.password = this.form.value.password;
-    this.userService.updateUser(this.user, this.picture);
+    this.userService.updateUser(this.user, this.form.value.image);
     this.activeModal.close();
   }
 
@@ -66,16 +66,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
     reader.onload = () => {
       this.profilePreview = reader.result;
     };
     reader.readAsDataURL(file);
-    this.picture = file;
 
   }
 
   closeModal() {
-    this.picture = null;
+    this.form.patchValue({image: null});
     this.activeModal.close();
   }
 }
