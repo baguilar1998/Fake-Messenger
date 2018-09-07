@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
     if (isValid){
       error = null;
     }
-    cb(error, '../images');
+    cb(error, 'front-end/images');
   },
   filename : (req,file,cb) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
@@ -136,7 +136,7 @@ router.post('/getUser', (req,res)=>{
 /**
  * A post function that updates any user information
  */
-router.post('/updateUser', multer(storage).single("image"), (req,res)=>{
+router.post('/updateUser', multer({storage: storage}).single('image'), (req,res)=>{
   //Gets the Query
   User.findOne({_id:req.body._id})
   .then(user=>{

@@ -94,7 +94,15 @@ export class UserService {
    * Updates any user information
    * @param user the user that is logged in
    */
-  updateUser(user) {
+  updateUser(user, image: File) {
+    /*const userData = new FormData();
+    userData.append('_id', user._id);
+    userData.append('firstName', user.firstName);
+    userData.append('lastName', user.lastName);
+    userData.append('email', user.email);
+    userData.append('password', user.password);
+    userData.append('image', image, 'profile-picture');
+    console.log(userData);*/
     this.http.post('//localhost:3000/api/users/updateUser', user).subscribe((data) => {
       console.log('Updating user');
       this.newUser = {
@@ -102,17 +110,16 @@ export class UserService {
       };
       this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
       .subscribe((res) => {
-        console.log(res.currentUser);
         const temp = res.currentUser;
-        const user: User = {
+        const updatedUser: User = {
           _id: temp._id,
           firstName: temp.firstName,
           lastName: temp.lastName,
           email: temp.email,
           password: temp.password
         };
-        this.currentUser = user;
-        this.saveUser(user);
+        this.currentUser = updatedUser;
+        this.saveUser(updatedUser);
       });
     });
 

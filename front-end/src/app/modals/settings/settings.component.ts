@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
    * Updates the user in the database
    */
   update() {
-    this.userService.updateUser(this.user);
+    this.userService.updateUser(this.user, this.picture);
     this.activeModal.close();
   }
 
@@ -60,5 +60,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
     this.picture = file;
 
+  }
+
+  closeModal() {
+    this.picture = null;
+    this.activeModal.close();
   }
 }
