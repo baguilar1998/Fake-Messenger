@@ -70,6 +70,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.form.get('image').updateValueAndValidity();
     reader.onload = () => {
       this.profilePreview = reader.result;
+      if (!this.form.get('image').valid) {
+        window.alert('Not a valid picture');
+        this.profilePreview = '../../../assets/avatar.png';
+        this.form.patchValue({image: null});
+      }
     };
     reader.readAsDataURL(file);
 
