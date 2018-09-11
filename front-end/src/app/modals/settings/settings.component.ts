@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.userService.autoAuthUser();
     this.authListenerSub = this.userService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
       this.authenticated = isAuthenticated;
