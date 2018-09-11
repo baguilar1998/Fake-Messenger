@@ -16,38 +16,31 @@
 
 <!--Actual Chat Box-->
 
-<div class="row">
+<div class="row" >
     <div class="col-lg-12">
+
       <!--A container that will display the messages-->
-      <div style="height:88.2vh">
+      <div style="max-height:88.2vh;min-height:88.2vh;overflow-y:scroll;">
         <br>
         <!-- Use an NGFOR -->
-          <ul>
-            <li class="other">Hello, What's up</li>
-            <li class="me">Not much.</li>
-            <li class="me">Just testing out to see if these chat bubbles work</li>
-            <li class="other">That's pretty nice</li>
-            <li class="other">Hello, What's up</li>
-            <li class="me">Not much.</li>
-            <li class="me">Just testing out to see if these chat bubbles work</li>
-            <li class="other">That's pretty nice</li>
-            <li class="other">Hello, What's up</li>
-            <li class="me">Not much.</li>
-            <li class="me">Just testing out to see if these chat bubbles work</li>
-            <li class="other">That's pretty nice</li>
-            <li class="other">Hello, What's up</li>
-            <li class="me">Not much.</li>
-            <li class="me">Just testing out to see if these chat bubbles work</li>
-            <li class="other">That's pretty nice</li>
+          <ul *ngFor = "let m of messages" >
+            <li *ngIf='m.user==1 && m.message!="(y)"' class="other">{{m.message}}</li>
+            <li *ngIf='m.user==0 && m.message!="(y)"' class="me">{{m.message}}</li>
+            <li *ngIf='m.user==1 && m.message=="(y)"' class="other">
+              <img src="../../../assets/icons/like.png" style="width:30px;display:block;margin:auto">
+            </li>
+            <li *ngIf='m.user==0 && m.message=="(y)"' class="me">
+                <img src="../../../assets/icons/like.png" style="width:30px;display:block;margin:auto">
+            </li>
           </ul>
       </div>
 
       <!--Input box to send messages-->
       <div class="row" style="border-top: 2px solid #F3F3F3;">
         <div class="input-group mb-3" >
-          <input type="text" class="form-control no-border" placeholder="Type a message...">
+          <input id="res" type="text" class="form-control no-border" placeholder="Type a message..." (keyup.enter)="sendMessage($event)" value=''>
           <div class="input-group-append">
-            <span style="cursor: pointer; padding:5px"><img src="../../../assets/icons/thumbsup.PNG" alt="Thumbs Up"></span>
+            <span style="cursor: pointer; padding:5px"><img src="../../../assets/icons/thumbsup.PNG" alt="Thumbs Up" (click)="thumbsUp()"></span>
           </div>
         </div>
       </div>
