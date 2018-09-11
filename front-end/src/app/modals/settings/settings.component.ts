@@ -21,17 +21,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.authListenerSub = this.userService.getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.authenticated = isAuthenticated;
+      this.authenticated = this.userService.getAuthStatus();
+    });
     this.form = new FormGroup({
       'firstName': new FormControl(this.user.firstName, {validators: [Validators.required]}),
       'lastName': new FormControl(this.user.lastName, {validators: [Validators.required]}),
       'email': new FormControl(this.user.email, {validators: [Validators.required]}),
       'password': new FormControl(this.user.password, {validators: [Validators.required]}),
       'image': new FormControl(null, {asyncValidators: [mimeType]})
-    });
-    this.authListenerSub = this.userService.getAuthStatusListener()
-    .subscribe(isAuthenticated => {
-      this.authenticated = isAuthenticated;
-      this.authenticated = this.userService.getAuthStatus();
     });
   }
 

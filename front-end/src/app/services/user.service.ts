@@ -76,7 +76,7 @@ export class UserService {
     this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
     .subscribe((data) => {
       console.log(data.currentUser);
-      const temp: User = JSON.parse(data.currentUser);
+      const temp  = data.currentUser;
       const user: User = {
         _id: temp._id,
         firstName: temp.firstName,
@@ -114,7 +114,7 @@ export class UserService {
       this.newUser = {
         Email: user.email
       };
-      this.http.post<{currentUser: User, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
+      this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
       .subscribe((res) => {
         const temp = res.currentUser;
         const updatedUser: User = {

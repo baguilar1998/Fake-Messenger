@@ -32,7 +32,7 @@ mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Ma
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/images", express.static(path.join("front-end/images")));
+//app.use("/images", express.static(path.join("front-end/images")));
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, 'dist/front-end')));

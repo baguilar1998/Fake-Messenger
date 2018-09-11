@@ -135,8 +135,9 @@ router.post('/getUser', (req,res)=>{
 
 /**
  * A post function that updates any user information
+ * multer({storage: storage}).single('image')
  */
-router.post('/updateUser', multer({storage: storage}).single('image'), (req,res, next)=>{
+router.post('/updateUser', (req,res, next)=>{
   //Gets the Query
   User.findOne({_id:req.body._id})
   .then(user=>{
