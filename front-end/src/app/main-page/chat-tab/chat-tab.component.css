@@ -40,6 +40,9 @@ ul li{
 .other + .me{
   border-bottom-right-radius: 5px;
 }
+.me + .other{
+  border-bottom-left-radius: 5px;
+}
 .me + .me{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
