@@ -141,9 +141,11 @@ router.post('/updateUser', (req,res, next)=>{
   //Gets the Query
   User.findOne({_id:req.body._id})
   .then(user=>{
-
-    User.update(user,req.body,function(err){
-      if(err)throw err;
+    bcrypt.hash(req.body.password, 10).then(hash=>{
+      req.body.password = hash;
+      User.update(user,req.body,function(err){
+        if(err)throw err;
+      });
     });
 
     res.status(200).json({message:"User updated"});

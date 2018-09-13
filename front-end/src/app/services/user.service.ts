@@ -85,6 +85,7 @@ export class UserService {
         password: temp.password
       };
       this.currentUser = user;
+      this.currentUser.password = password;
       this.saveUser(user);
     });
 
@@ -112,7 +113,8 @@ export class UserService {
     .subscribe((data) => {
       console.log('Updating user');
       this.newUser = {
-        Email: user.email
+        Email: user.email,
+        Password: user.password
       };
       this.http.post<{currentUser: string, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
       .subscribe((res) => {
@@ -125,6 +127,7 @@ export class UserService {
           password: temp.password
         };
         this.currentUser = updatedUser;
+        this.currentUser.password = this.newUser.Password;
         this.saveUser(updatedUser);
       });
     });
