@@ -19,6 +19,7 @@ import { FriendsComponent } from './main-page/messages-tab/friends/friends.compo
 import { SettingsComponent } from './modals/settings/settings.component';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { FriendService } from './services/friend.service';
+import { SocketService } from './services/socket.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FriendService } from './services/friend.service';
     NgbModule,
     AppRoutingModule
   ],
-  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, FriendService],
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, FriendService,
+  SocketService],
   bootstrap: [AppComponent],
   entryComponents: [SettingsComponent]
 })
