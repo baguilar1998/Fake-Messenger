@@ -5,7 +5,7 @@ import {Event} from '../../client-enums';
 
 import * as socketIo from 'socket.io-client';
 
-const SERVER_URL = 'http://localhost:8080';
+const SERVER_URL = 'http://localhost:5000';
 
 @Injectable()
 export class SocketService {
