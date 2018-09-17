@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SocketService } from '../services/socket.service';
+import {Event} from '../../client-enums';
+import { EVENT_MANAGER_PLUGINS } from '../../../node_modules/@angular/platform-browser';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private socketService: SocketService) {}
   ngOnInit() {
   }
+
 
 }

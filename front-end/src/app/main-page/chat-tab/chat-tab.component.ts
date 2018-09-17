@@ -12,24 +12,7 @@ import { SocketService } from '../../services/socket.service';
 export class ChatTabComponent implements OnInit, OnDestroy {
 
   selectedFriend = this.friendService.getSelectedFriend();
-  messages = [
-    /*{
-      message: 'Hello friend !',
-      user: 0
-    },
-    {
-      message: 'Hey There !',
-      user: 1
-    },
-    {
-      message: 'How are you doing ?',
-      user: 1
-    },
-    {
-      message: 'Im doing well. How about you ?',
-      user: 0
-    }*/
-  ];
+  messages = [];
   subscription;
   constructor(private userService: UserService, private friendService: FriendService,
   private socketService: SocketService) {
