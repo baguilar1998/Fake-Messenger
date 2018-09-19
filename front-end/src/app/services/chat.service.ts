@@ -23,14 +23,14 @@ export class ChatService {
     private friendService: FriendService, private http: HttpClient) {
     if (userService.getAuthStatus() === true) {
       this.user = userService.currentUser;
-      this.selectedFriend = friendService.getSelectedFriend();
+      this.selectedFriend = friendService.selectedFriend;
     }
   }
 
   sendMessage(message: string) {
     // Creates a new Message Object
     const newMessage = {
-      chatId: this.chat.id,
+      // chatId: this.chat.id,
       body: message,
       author: this.user._id
     };
@@ -43,6 +43,7 @@ export class ChatService {
       this.http.post('//localhost:3000/api/chat/reply', message)
       .subscribe((data) => {
         // CODE TO BE IMPLEMENTED
+        console.log('message sent');
       });
     }
 
@@ -58,9 +59,16 @@ export class ChatService {
 
   // A method to create a new conversation
   private createNewConversation(firstMessage) {
-    this.http.post('//localhost:3000/api/chat/newConversation', firstMessage)
+    const requiredInformation = {
+      currentUser: this.user,
+      newUser: this.selectedFriend,
+      message: firstMessage,
+    };
+    console.log(requiredInformation);
+    this.http.post('//localhost:3000/api/chat/newConversation', requiredInformation)
     .subscribe((data) => {
       // CODE TO BE IMPLEMENTED
+      console.log('conversation started');
     });
   }
 

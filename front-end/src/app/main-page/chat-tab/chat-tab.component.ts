@@ -4,6 +4,7 @@ import { FriendService } from '../../services/friend.service';
 import {Event} from '../../../client-enums';
 import { SocketService } from '../../services/socket.service';
 import { Message } from '../../typescriptmodels/Message';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat-tab',
@@ -16,7 +17,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   subscription;
   constructor(private userService: UserService, private friendService: FriendService,
-  private socketService: SocketService) {
+  private socketService: SocketService, private chatService: ChatService) {
     this.initIoConnection();
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
    }
@@ -66,6 +67,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
      };
     }
     this.messages.push(message);
+    this.chatService.sendMessage(message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 

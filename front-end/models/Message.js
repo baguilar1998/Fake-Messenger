@@ -10,7 +10,7 @@ var MessageSchema = new mongoose.Schema({
       required: true
     },
     author: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     }
   },
@@ -18,4 +18,4 @@ var MessageSchema = new mongoose.Schema({
     timestamps: true //Saves createdAt and updatedAt as dates
 });
 
-module.exports = mongoose.Model('Message',MessageSchema);
+module.exports = mongoose.model('Message',MessageSchema);
