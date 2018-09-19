@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { FriendService } from '../../services/friend.service';
 import {Event} from '../../../client-enums';
 import { SocketService } from '../../services/socket.service';
+import { Message } from '../../typescriptmodels/Message';
 
 @Component({
   selector: 'app-chat-tab',
@@ -12,7 +13,7 @@ import { SocketService } from '../../services/socket.service';
 export class ChatTabComponent implements OnInit, OnDestroy {
 
   selectedFriend = this.friendService.getSelectedFriend();
-  messages = [];
+  messages: Message[] = [];
   subscription;
   constructor(private userService: UserService, private friendService: FriendService,
   private socketService: SocketService) {

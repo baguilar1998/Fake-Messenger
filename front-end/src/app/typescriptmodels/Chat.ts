@@ -1,4 +1,6 @@
+import { User } from './User';
+
 export class Chat {
   id: string;
-  users: string[];
+  users: User[];
 }

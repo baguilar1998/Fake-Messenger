@@ -21,8 +21,10 @@ const app = express();
  */
 const userRoute = require('./routes/users');
 const friendsRoute = require('./routes/friends');
+const chatRoute = require('./routes/chat');
 
 // Connects the application to the database
+// mongo "mongodb+srv://user-bmyfw.mongodb.net/test" --username Brian
 mongoose.connect("mongodb+srv://Brian:YBOfPjIDYQ001tCp@user-bmyfw.mongodb.net/Main?retryWrites=true")
 .then(()=>{
   console.log("Connected to database");
@@ -53,6 +55,7 @@ app.use((req, res, next) =>{
 //Express Routes for RESTAPI
 app.use('/api/users',userRoute);
 app.use('/api/friends',friendsRoute);
+app.use('/api/chat',chatRoute);
 
 /**
  * Web Socket Code
