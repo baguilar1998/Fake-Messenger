@@ -23,7 +23,8 @@ export class ChatService {
     private friendService: FriendService, private http: HttpClient) {
     if (userService.getAuthStatus() === true) {
       this.user = userService.currentUser;
-      this.selectedFriend = friendService.selectedFriend;
+      friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
+      console.log(this.selectedFriend);
     }
   }
 

@@ -15,9 +15,7 @@ export class FriendService {
   selectedFriendChange: Subject<string> = new Subject<string>();
   friendsUpdated: Subject<User[]> = new Subject<User[]>();
 
-  constructor(private http: HttpClient) {
-    this.fetchFriends();
-   }
+  constructor(private http: HttpClient) {}
 
 
   /**
@@ -43,6 +41,9 @@ export class FriendService {
     return this.friends;
   }
 
+  /**
+   * @return Obersavable of all the users in the database
+   */
   fetchFriends() {
     return this.http.get<{allUsers: any}>('//localhost:3000/api/friends/allUsers');
   }

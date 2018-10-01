@@ -18,11 +18,11 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   subscription;
   constructor(private userService: UserService, private friendService: FriendService,
   private socketService: SocketService, private chatService: ChatService) {
-    this.initIoConnection();
+    // this.initIoConnection();
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
    }
 
-   private initIoConnection(): void {
+  /* private initIoConnection(): void {
     this.socketService.initSocket();
 
    // this.ioConnection = this.socketService.onMessage()
@@ -39,7 +39,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         console.log('disconnected');
       });
-  }
+  }*/
 
   ngOnInit() {
     this.userService.autoAuthUser();

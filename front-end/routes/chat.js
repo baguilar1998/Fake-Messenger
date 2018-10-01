@@ -105,22 +105,22 @@ router.post('/newConversation', function(req,res,next){
     }
 
     //If the chat was stored in the database, store the message
+    // PROBLEM, message is not being stored in the message object
     const message = new Message({
       chatId: newChat._id,
       body: req.body.message,
       author: req.body.currentUser
     });
 
+    console.log(message);
     //Stores the first message in the Message Schema
     message.save(function(err, newMessage){
       if(err){
         res.send({error:err});
-        return next(err);
       }
     });
 
     res.status(200).json({message:'Conversation started', chatId: chat.id});
-    return next();
   });
 });
 
@@ -142,7 +142,6 @@ router.post('/reply',function(req,res,next){
       return next(err);
     }
     res.status(200).json({message:'Reply sent'});
-    return (next);
   });
 });
 

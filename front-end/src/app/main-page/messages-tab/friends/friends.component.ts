@@ -12,7 +12,9 @@ export class FriendsComponent implements OnInit {
 
   friends;
   subscription;
-  constructor(private friendService: FriendService, private userService: UserService) {
+  constructor(private friendService: FriendService, private userService: UserService) {}
+
+  ngOnInit() {
     this.friendService.fetchFriends().pipe(map((data => {
       return data.allUsers.map(res => {
         return {
@@ -26,7 +28,6 @@ export class FriendsComponent implements OnInit {
     })))
     .subscribe((data) => {
       this.friends = data;
-      // Doesn't display the user that's logged in [O(n)]
       for (let i = 0 ; i < this.friends.length; i++) {
         if (this.friends[i]._id === this.userService.currentUser._id) {
           this.friends.splice(i, 1);
@@ -35,9 +36,6 @@ export class FriendsComponent implements OnInit {
       }
       this.friendService.setSelectedFriend(this.friends[0]);
     });
-   }
-
-  ngOnInit() {
   }
 
 
