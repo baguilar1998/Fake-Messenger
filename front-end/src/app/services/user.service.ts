@@ -53,42 +53,49 @@ export class UserService {
 
     // Sets up the token for the user
     this.http.post<{token: string, expiresIn: number}>('//localhost:3000/api/users/login', this.newUser)
-    .subscribe((data) => {
-      console.log('Logging user in');
-      const token = data.token;
-      this.token = token;
-      // Only authenticates a user if the token is valid
-      if (token) {
-        const expiresInDuration = data.expiresIn;
-        this.setAuthTimer(expiresInDuration);
-        this.authStatusListener.next(true);
-        const now = new Date();
-        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate);
-        this.authenticated = true;
-        this.router.navigate(['/main']);
-      }
-    });
+    .subscribe(
+        (data) => {
+        console.log('Logging user in');
+        const token = data.token;
+        this.token = token;
+        // Only authenticates a user if the token is valid
+        if (token) {
+          const expiresInDuration = data.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.saveAuthData(token, expirationDate);
+          this.authenticated = true;
 
-    /**
-     * Gets the user that logged in
-     */
-    // Change current user to string later
-    this.http.post<{currentUser: User, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
-    .subscribe((data) => {
-      console.log(data.currentUser);
-      const temp = data.currentUser;
-      const user: User = {
-        _id: temp._id,
-        firstName: temp.firstName,
-        lastName: temp.lastName,
-        email: temp.email,
-        password: temp.password
-      };
-      this.currentUser = user;
-      this.currentUser.password = password;
-      this.saveUser(user);
-    });
+          /**
+           * Gets the user that logged in
+           */
+          // Change current user to string later
+          this.http.post<{currentUser: User, message: string}>('//localhost:3000/api/users/getUser', this.newUser)
+          .subscribe((data) => {
+            console.log(data.currentUser);
+            const temp = data.currentUser;
+            const user: User = {
+              _id: temp._id,
+              firstName: temp.firstName,
+              lastName: temp.lastName,
+              email: temp.email,
+              password: temp.password
+            };
+            this.currentUser = user;
+            this.currentUser.password = password;
+            this.saveUser(user);
+            this.router.navigate(['/main']);
+          });
+        }
+      },
+      (err)=>{
+        console.log('User entered in the wrong password');
+        return;
+      }
+    );
+
 
 
   }

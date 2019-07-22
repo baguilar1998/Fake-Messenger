@@ -78,7 +78,7 @@ router.post('/login',(req,res,next)=>{
   .then(user =>{
     // Rejects auth if the user is not found in the database (email)
     if(!user){
-      return res.status(401).json({message:"Auth Failed"});
+      return res.status(401).json({message:"User could not be found"});
     }
 
     /**
@@ -94,7 +94,7 @@ router.post('/login',(req,res,next)=>{
   }).then(result => {
     // Sends an Auth Fail reponse if the user didnt type in the correct password
     if(!result){
-      return res.status(401).json({message:"Auth Failed"});
+      return res.status(401).json({message:"User entered wrong password"});
     }
 
     const token = jwt.sign(
@@ -103,6 +103,7 @@ router.post('/login',(req,res,next)=>{
       {expiresIn:'1h'}
     );
 
+    console.log('User can log in');
     res.status(200).json({
       token:token,
       expiresIn: 3600
