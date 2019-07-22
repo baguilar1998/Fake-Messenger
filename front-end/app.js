@@ -12,6 +12,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const http = require('http').Server(express);
+const io = require('socket.io')(http);
 //const path = require('path');
 
 
@@ -60,6 +62,11 @@ app.use((req, res, next) =>{
 app.use('/api/users',userRoute);
 app.use('/api/friends',friendsRoute);
 app.use('/api/chat',chatRoute);
+
+http.listen(4444, ()=>{
+  console.log("Starting a connection");
+});
+
 
 /**
  * Web Socket Code

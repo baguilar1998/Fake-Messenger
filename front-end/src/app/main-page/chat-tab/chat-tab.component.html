@@ -24,12 +24,12 @@
         <br>
         <!-- Use an NGFOR -->
           <ul *ngFor = "let m of messages" >
-            <li *ngIf='m.user==1 && m.message!="(y)"' class="other">{{m.message}}</li>
-            <li *ngIf='m.user==0 && m.message!="(y)"' class="me">{{m.message}}</li>
-            <li *ngIf='m.user==1 && m.message=="(y)"' class="other">
+            <li *ngIf='m.type==1 && m.body!="(y)"' class="other">{{m.body}}</li>
+            <li *ngIf='m.type==0 && m.body!="(y)"' class="me">{{m.body}}</li>
+            <li *ngIf='m.type==1 && m.body=="(y)"' class="other">
               <img src="../../../assets/icons/like.png" style="width:30px;display:block;margin:auto">
             </li>
-            <li *ngIf='m.user==0 && m.message=="(y)"' class="me">
+            <li *ngIf='m.type==0 && m.body=="(y)"' class="me">
                 <img src="../../../assets/icons/like.png" style="width:30px;display:block;margin:auto">
             </li>
           </ul>

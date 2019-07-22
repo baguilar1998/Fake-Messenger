@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -39,7 +41,8 @@ import { SocketService } from './services/socket.service';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, FriendService,
   SocketService],

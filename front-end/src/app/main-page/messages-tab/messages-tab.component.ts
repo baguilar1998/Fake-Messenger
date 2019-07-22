@@ -17,7 +17,7 @@ export class MessagesTabComponent implements OnInit {
   openModal(type): void {
     switch (type) {
       case 'settings':
-        let settings = this.modalService.open(SettingsComponent, {size: 'lg'});
+        const settings = this.modalService.open(SettingsComponent, {size: 'lg'});
         break;
     }
   }

@@ -12,10 +12,12 @@ export class FriendsComponent implements OnInit {
 
   friends;
   subscription;
-  constructor(private friendService: FriendService, private userService: UserService) {}
-
-  ngOnInit() {
-    this.friendService.fetchFriends().pipe(map((data => {
+  constructor(private friendService: FriendService,
+    private userService: UserService) {
+      this.friendService.getFriends.subscribe((data)=>{
+        this.friends = data;
+      });
+    /*this.friendService.fetchFriends().pipe(map((data => {
       return data.allUsers.map(res => {
         return {
           _id: res._id,
@@ -35,8 +37,10 @@ export class FriendsComponent implements OnInit {
         }
       }
       this.friendService.setSelectedFriend(this.friends[0]);
-    });
+    });*/
   }
+
+  ngOnInit() {}
 
 
   getFriend(friend) {
