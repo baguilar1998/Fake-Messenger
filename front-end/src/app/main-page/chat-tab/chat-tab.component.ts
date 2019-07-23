@@ -5,6 +5,7 @@ import {Event} from '../../../client-enums';
 import { SocketService } from '../../services/socket.service';
 import { Message } from '../../typescriptmodels/Message';
 import { ChatService } from '../../services/chat.service';
+import { Chat } from 'src/app/typescriptmodels/Chat';
 
 @Component({
   selector: 'app-chat-tab',
@@ -16,11 +17,13 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   selectedFriend;
   messages: Message[] = [];
   subscription;
+  chat: Chat;
   constructor(private userService: UserService, private friendService: FriendService,
   private socketService: SocketService, private chatService: ChatService) {
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
     this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data)=> {
       this.selectedFriend = data;
+      this.chatService.getConversation(this.selectedFriend);
     });
    }
 
@@ -50,6 +53,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
      };
     }
     this.messages.push(message);
+    console.log(message);
     //this.chatService.sendMessage(message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
     console.log(this.friendService.getSelectedFriend());

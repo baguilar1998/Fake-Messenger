@@ -20,9 +20,25 @@ export class ChatService {
 
 
   constructor(private userService: UserService,
-    private friendService: FriendService, private http: HttpClient) {
-      this.user = userService.currentUser;
-      friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
+  private friendService: FriendService, private http: HttpClient) {
+    this.user = userService.currentUser;
+    friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
   }
 
+  getConversation(selectedFriend: User): void {
+    this.http.post<any>('//localhost:3000/api/chat/getConversation',selectedFriend)
+    .subscribe(
+      (chat) => {
+        if (chat.length === 0) {
+          this.messageLog = [];
+        } else {
+          this.messageLog = chat;
+        }
+      }
+    );
+  }
+
+  sendMessage(message): void {
+
+  }
 }
