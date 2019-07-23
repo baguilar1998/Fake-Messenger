@@ -11,10 +11,8 @@ import { HttpClient } from '../../../node_modules/@angular/common/http';
 })
 export class ChatService {
 
-  // Information needed for each chat
   chat: Chat;
   messageLog: Message[] = [];
-  // User that is logged in
   user;
   selectedFriend;
 
@@ -26,19 +24,31 @@ export class ChatService {
   }
 
   getConversation(selectedFriend: User): void {
-    this.http.post<any>('//localhost:3000/api/chat/getConversation',selectedFriend)
+    this.http.post<any>('//localhost:3000/api/chat/getConversation', selectedFriend)
     .subscribe(
       (chat) => {
         if (chat.length === 0) {
           this.messageLog = [];
+          this.chat = null;
         } else {
-          this.messageLog = chat;
+          // Create call to get all messages
+          this.chat = chat;
         }
       }
     );
   }
 
+  newConversation() {
+    const conversation = {
+      users: [this.user, this.selectedFriend]
+    };
+    this.http.post<any>('//localhost:3000/api/chat/newConversation', conversation);
+  }
+
   sendMessage(message): void {
+    if (!this.chat) {
+      this.newConversation();
+    }
 
   }
 }

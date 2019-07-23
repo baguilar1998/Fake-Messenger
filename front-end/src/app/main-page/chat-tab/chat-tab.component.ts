@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FriendService } from '../../services/friend.service';
-import {Event} from '../../../client-enums';
 import { SocketService } from '../../services/socket.service';
 import { Message } from '../../typescriptmodels/Message';
 import { ChatService } from '../../services/chat.service';
@@ -12,7 +11,7 @@ import { Chat } from 'src/app/typescriptmodels/Chat';
   templateUrl: './chat-tab.component.html',
   styleUrls: ['./chat-tab.component.css']
 })
-export class ChatTabComponent implements OnInit, OnDestroy {
+export class ChatTabComponent implements OnInit {
 
   selectedFriend;
   messages: Message[] = [];
@@ -24,14 +23,12 @@ export class ChatTabComponent implements OnInit, OnDestroy {
     this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data)=> {
       this.selectedFriend = data;
       this.chatService.getConversation(this.selectedFriend);
+      this.chat = this.chatService.chat;
     });
    }
 
   ngOnInit() {
     this.userService.autoAuthUser();
-  }
-
-  ngOnDestroy() {
   }
 
   /**
@@ -56,10 +53,13 @@ export class ChatTabComponent implements OnInit, OnDestroy {
     console.log(message);
     //this.chatService.sendMessage(message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
-    console.log(this.friendService.getSelectedFriend());
   }
 
   thumbsUp() {
     this.sendMessage('(y)');
+  }
+
+  setChat(chat) {
+    this.chat = chat;
   }
 }

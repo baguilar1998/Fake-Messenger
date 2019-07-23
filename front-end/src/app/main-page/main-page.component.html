@@ -1,10 +1,10 @@
 <div id="main" class="container-fluid d-flex">
   <div class="row flex-fill">
       <div class="col-md-3" style="border-right: 2px solid #F3F3F3;">
-          <app-messages-tab></app-messages-tab>
+          <app-messages-tab (chat)="chat.setChat($event)"></app-messages-tab>
       </div>
       <div class="col-md-9">
-        <app-chat-tab></app-chat-tab>
+        <app-chat-tab #chat></app-chat-tab>
       </div>
   </div>
 </div>

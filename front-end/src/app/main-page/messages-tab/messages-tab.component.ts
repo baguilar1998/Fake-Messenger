@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { SettingsComponent } from '../../modals/settings/settings.component';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventEmitter } from '@angular/core';
 @Component({
   providers: [NgbActiveModal],
   selector: 'app-messages-tab',
@@ -9,6 +10,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MessagesTabComponent implements OnInit {
 
+  @Output() chat = new EventEmitter();
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -20,6 +22,10 @@ export class MessagesTabComponent implements OnInit {
         const settings = this.modalService.open(SettingsComponent, {size: 'lg'});
         break;
     }
+  }
+
+  sendChat(chat) {
+    this.chat.emit(chat);
   }
 
 }
