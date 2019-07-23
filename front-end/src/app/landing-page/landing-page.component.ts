@@ -11,6 +11,9 @@ export class LandingPageComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    if (!this.userService.currentUser) {
+      this.userService.autoAuthUser();
+    }
   }
 
 }
