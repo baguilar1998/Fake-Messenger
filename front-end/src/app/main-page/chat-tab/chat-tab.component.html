@@ -23,7 +23,7 @@
       <div style="max-height:88.2vh;min-height:88.2vh;overflow-y:scroll;">
         <br>
         <!-- Use an NGFOR -->
-          <ul *ngFor = "let m of messages" >
+          <ul *ngFor = "let m of this.chatService.messageLog" >
             <li *ngIf='m.type==1 && m.body!="(y)"' class="other">{{m.body}}</li>
             <li *ngIf='m.type==0 && m.body!="(y)"' class="me">{{m.body}}</li>
             <li *ngIf='m.type==1 && m.body=="(y)"' class="other">

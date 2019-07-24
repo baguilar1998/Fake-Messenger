@@ -21,9 +21,11 @@ export class ChatService {
   private friendService: FriendService, private http: HttpClient) {
     this.user = userService.currentUser;
     friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
+    this.getConversation(this.selectedFriend);
   }
 
   getConversation(selectedFriend: User): void {
+    console.log(this.selectedFriend);
     this.http.post<any>('//localhost:3000/api/chat/getConversation', selectedFriend)
     .subscribe(
       (chat) => {
@@ -31,23 +33,40 @@ export class ChatService {
           this.messageLog = [];
           this.chat = null;
         } else {
-          // Create call to get all messages
           this.chat = chat;
+          console.log(this.chat);
+          this.http.post<any>('//localhost:3000/api/chat/getMessages', chat)
+          .subscribe((messages) => {
+            this.messageLog = messages;
+          });
         }
       }
     );
   }
 
-  newConversation() {
+  newConversation(message) {
     const conversation = {
       users: [this.user, this.selectedFriend]
     };
-    this.http.post<any>('//localhost:3000/api/chat/newConversation', conversation);
+    this.http.post<any>('//localhost:3000/api/chat/newConversation', conversation)
+    .subscribe((newChat) => {
+      this.chat = newChat;
+    });
   }
 
   sendMessage(message): void {
     if (!this.chat) {
-      this.newConversation();
+      this.newConversation(message);
+    } else {
+      const newMessage = {
+        chatId: this.chat._id,
+        body: message,
+        author: this.user
+      }
+      this.http.post<any>('//localhost:3000/api/chat/sendMessage', newMessage)
+      .subscribe((data)=>{
+        this.messageLog.push(data);
+      });
     }
 
   }

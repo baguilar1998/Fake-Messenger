@@ -21,13 +21,35 @@ router.post('/newConversation', (req,res,next)=>{
 
 router.post('/getConversation', (req,res,next)=>{
   const email = req.body.email;
-  Chat.find({email:email}).then((results)=>{
+  Chat.findOne({email:email}).then((results)=>{
     res.status(200).send(results);
   });
 });
 
 router.post('/sendMessage', (req,res,next)=>{
+  const message = new Message({
+    chatId: req.body._id,
+    body: req.body.body,
+    author: req.body.author
+  });
 
+  console.log(message);
+  message.save().then(results => {
+    console.log("Message Sent");
+    res.status(200).send(results);
+  }).catch(err=>{
+    console.log("There was an error in sending a message");
+    console.log(err);
+    res.status(500).send(err);
+  });
+});
+
+router.post('/getMessages', (req,res,next)=>{
+  Message.find({chatId: req.body._id}).then(messages =>{
+    res.status(200).send(messages);
+  }).catch(err=>{
+    res.status(500).send({message:"No messages"});
+  });
 });
 
 module.exports = router;

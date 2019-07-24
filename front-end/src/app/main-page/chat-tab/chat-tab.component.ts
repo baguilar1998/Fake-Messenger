@@ -49,9 +49,7 @@ export class ChatTabComponent implements OnInit {
        user: 0
      };
     }
-    this.messages.push(message);
-    console.log(message);
-    //this.chatService.sendMessage(message.message);
+    this.chatService.sendMessage(message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 
