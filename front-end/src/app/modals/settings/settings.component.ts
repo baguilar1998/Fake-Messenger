@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       'lastName': new FormControl(this.user.lastName, {validators: [Validators.required]}),
       'email': new FormControl(this.user.email, {validators: [Validators.required]}),
       'password': new FormControl(this.user.password, {validators: [Validators.required]}),
-      'image': new FormControl(null, {asyncValidators: [mimeType]})
+      //'image': new FormControl(null, {asyncValidators: [mimeType]})
     });
   }
 
