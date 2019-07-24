@@ -39,23 +39,6 @@ router.post('/getConversation', (req,res,next)=>{
   });
 });
 
-/*
-let counter = 0;
-    console.log(results);
-    let usersArray = results.users;
-    for(let i = 0; i < usersArray.length; i++) {
-      for(let j = 0; j < users.length; j++) {
-        if(usersArray[j] == users[i])
-          counter++;
-      }
-    }
-    console.log(counter);
-    if(counter == users.length)
-      res.status(200).send(results);
-    else
-      res.status(500).send(null);
-
-*/
 router.post('/sendMessage', (req,res,next)=>{
   const message = new Message({
     chatId: req.body.chatId,
