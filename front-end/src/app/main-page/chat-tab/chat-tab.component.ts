@@ -20,10 +20,8 @@ export class ChatTabComponent implements OnInit {
   constructor(private userService: UserService, private friendService: FriendService,
   private socketService: SocketService, private chatService: ChatService) {
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
-    this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data)=> {
+    this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data) => {
       this.selectedFriend = data;
-      this.chatService.getConversation(this.selectedFriend);
-      this.chat = this.chatService.chat;
     });
    }
 

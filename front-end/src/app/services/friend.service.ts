@@ -15,7 +15,7 @@ export class FriendService {
   selectedFriend;
   firstSelectedFriend: Subject<User> = new Subject<User>();
   getFriends: Subject<User[]> = new Subject<User[]>();
-  selectedFriendChange: Subject<string> = new Subject<string>();
+  selectedFriendChange: Subject<User> = new Subject<User>();
   friendsUpdated: Subject<User[]> = new Subject<User[]>();
 
   constructor(private http: HttpClient,

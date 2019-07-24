@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { EventEmitter } from 'events';
+import { User } from 'src/app/typescriptmodels/User';
 
 @Component({
   selector: 'app-friends',
@@ -12,7 +13,7 @@ import { EventEmitter } from 'events';
 })
 export class FriendsComponent implements OnInit {
 
-  friends;
+  friends: User[];
   subscription;
   @Output() chat = new EventEmitter();
   constructor(private friendService: FriendService,
@@ -26,9 +27,8 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {}
 
 
-  getFriend(friend) {
+  getFriend(friend: User) {
     this.friendService.setSelectedFriend(friend);
-    this.chatService.getConversation(friend);
   }
 
 }
