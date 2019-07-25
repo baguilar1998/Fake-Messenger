@@ -19,9 +19,6 @@ export class FriendsComponent implements OnInit {
   constructor(private friendService: FriendService,
     private userService: UserService,
     private chatService: ChatService) {
-      //this.friendService.getFriends.subscribe((data) => {
-        //this.friends = data;
-      //});
       this.friendService.fetchFriends().pipe(map((data => {
         return data.allUsers.map(res => {
           return {

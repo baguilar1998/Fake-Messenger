@@ -6,6 +6,7 @@ import { FriendService } from './friend.service';
 import { Chat } from '../typescriptmodels/Chat';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class ChatService {
 
 
   constructor(private userService: UserService,
-  private friendService: FriendService, private http: HttpClient) {
+  private friendService: FriendService,
+  private http: HttpClient,
+  private socket: Socket) {
     this.user = userService.currentUser;
     friendService.selectedFriendChange.subscribe((data) => {
       this.selectedFriend = data;
@@ -81,8 +84,7 @@ export class ChatService {
       }
       this.http.post<any>('//localhost:3000/api/chat/sendMessage', newMessage)
       .subscribe((data) => {
-        data.type = 0;
-        this.messageLog.push(data);
+        this.socket.emit('sendMessage', data);
       });
     }
 

@@ -5,6 +5,7 @@ import { SocketService } from '../../services/socket.service';
 import { Message } from '../../typescriptmodels/Message';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from 'src/app/typescriptmodels/Chat';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-chat-tab',
@@ -17,11 +18,23 @@ export class ChatTabComponent implements OnInit {
   messages: Message[] = [];
   subscription;
   chat: Chat;
-  constructor(private userService: UserService, private friendService: FriendService,
-  private socketService: SocketService, private chatService: ChatService) {
+  constructor(private userService: UserService,
+    private friendService: FriendService,
+    private chatService: ChatService,
+    private socket: Socket) {
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
     this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data) => {
       this.selectedFriend = data;
+    });
+    this.socket.on('sendMessage', (message) => {
+
+      if (this.userService.currentUser._id === message.author) {
+        message.type = 0;
+        this.chatService.messageLog.push(message);
+      } else {
+        message.type = 1;
+        this.chatService.messageLog.push(message);
+      }
     });
    }
 
@@ -48,6 +61,7 @@ export class ChatTabComponent implements OnInit {
      };
     }
     this.chatService.sendMessage(message.message);
+    this.socket.emit('sendMessage', message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 

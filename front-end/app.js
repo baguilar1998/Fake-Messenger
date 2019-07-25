@@ -67,7 +67,19 @@ http.listen(4444, ()=>{
   console.log("Starting a connection");
 });
 
+io.on("connection", (socket)=>{
+  console.log("A user has entered the site");
 
+  socket.on("sendMessage", (message)=>{
+    console.log("Someone has sent a message");
+    io.emit("sendMessage",message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user has left the site");
+  });
+
+});
 /**
  * Web Socket Code
 
