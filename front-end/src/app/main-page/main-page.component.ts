@@ -10,7 +10,7 @@ import { EVENT_MANAGER_PLUGINS } from '../../../node_modules/@angular/platform-b
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private socketService: SocketService) {}
+  constructor() {}
   ngOnInit() {
   }
 

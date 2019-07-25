@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { FriendService } from './friend.service';
 import { Chat } from '../typescriptmodels/Chat';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class ChatService {
             this.messageLog = messages;
             console.log(this.messageLog);
             for (let i = 0; i < this.messageLog.length; i++) {
-              if (this.messageLog[i].author === this.user._id) {
+              if (this.messageLog[i].author === this.userService.currentUser._id) {
                 this.messageLog[i].type = 0;
               } else {
                 this.messageLog[i].type = 1;

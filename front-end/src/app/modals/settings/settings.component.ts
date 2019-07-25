@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
-import {mimeType} from './mime-type.validator';
+//import {mimeType} from './mime-type.validator';
 import { FormGroup, FormControl, Validators } from '../../../../node_modules/@angular/forms';
 
 @Component({
