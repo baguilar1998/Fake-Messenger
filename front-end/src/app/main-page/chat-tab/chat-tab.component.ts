@@ -26,8 +26,8 @@ export class ChatTabComponent implements OnInit {
     this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data) => {
       this.selectedFriend = data;
     });
-    this.socket.on('sendMessage', (message) => {
-
+    this.socket.on('sendMessage', (m) => {
+      const message = JSON.parse(m);
       if (this.userService.currentUser._id === message.author) {
         message.type = 0;
         this.chatService.messageLog.push(message);
@@ -61,7 +61,6 @@ export class ChatTabComponent implements OnInit {
      };
     }
     this.chatService.sendMessage(message.message);
-    this.socket.emit('sendMessage', message.message);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 

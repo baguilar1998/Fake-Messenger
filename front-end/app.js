@@ -72,7 +72,8 @@ io.on("connection", (socket)=>{
 
   socket.on("sendMessage", (message)=>{
     console.log("Someone has sent a message");
-    io.emit("sendMessage",message);
+    console.log(message);
+    io.emit("sendMessage",JSON.stringify(message));
   });
 
   socket.on("disconnect", () => {
