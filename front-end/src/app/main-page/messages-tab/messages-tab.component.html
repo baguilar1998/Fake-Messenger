@@ -16,13 +16,13 @@
 <div class="row" id="searchbar">
   <div class="col-lg-12">
     <div class="input-group">
-      <input class="form-control py-2 border text-center" type="search" placeholder="Search Messenger" id="example-search-input">
+      <input id="search-bar" [(ngModel)]="searchedUser" (keydown.enter)="findPossibleUsers()" class="form-control py-2 border text-center" type="search" placeholder="Search for users" id="example-search-input">
     </div>
   </div>
 <!-- List of Messages-->
 <div class="row flex-fill w-100" id="messages" style="height:88vh">
   <div class="col-lg-12 h-100" id="scroll" style="overflow-y:scroll;">
-    <app-friends ></app-friends>
+    <app-friends></app-friends>
   </div>
 </div>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from '../../../node_modules/rxjs';
+import { Subject, Observable } from '../../../node_modules/rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../typescriptmodels/User';
 import { map } from 'rxjs/operators';
@@ -39,6 +39,13 @@ export class FriendService {
    */
   fetchFriends() {
     return this.http.get<{allUsers: any}>('//localhost:3000/api/friends/allUsers');
+  }
+
+  findPossibleUsers(user:string): Observable<any> {
+    const request = {
+      name: user
+    };
+    return this.http.post<any>('//localhost:3000/api/friends/findUsers', request);
   }
 
   getFirstFriend() {

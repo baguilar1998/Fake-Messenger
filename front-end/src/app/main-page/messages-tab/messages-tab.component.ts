@@ -1,7 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { SettingsComponent } from '../../modals/settings/settings.component';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventEmitter } from '@angular/core';
+import { FriendsComponent } from './friends/friends.component';
+import { FriendService } from 'src/app/services/friend.service';
 @Component({
   providers: [NgbActiveModal],
   selector: 'app-messages-tab',
@@ -11,7 +13,12 @@ import { EventEmitter } from '@angular/core';
 export class MessagesTabComponent implements OnInit {
 
   @Output() chat = new EventEmitter();
-  constructor(private modalService: NgbModal) { }
+  @ViewChild(FriendsComponent) friends: FriendsComponent;
+  searchedUser: string;
+  constructor(private modalService: NgbModal,
+    private friendService: FriendService) {
+    this.searchedUser = '';
+  }
 
   ngOnInit() {
   }
@@ -28,4 +35,7 @@ export class MessagesTabComponent implements OnInit {
     this.chat.emit(chat);
   }
 
+  findPossibleUsers(): void {
+    this.friends.findPossibleUsers(this.searchedUser);
+  }
 }

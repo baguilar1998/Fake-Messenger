@@ -13,12 +13,15 @@ import { User } from 'src/app/typescriptmodels/User';
 })
 export class FriendsComponent implements OnInit {
 
-  friends: User[];
+  users: User[];
+  currentFriends: User[];
+  didSearch: boolean;
   subscription;
   @Output() chat = new EventEmitter();
   constructor(private friendService: FriendService,
     private userService: UserService,
     private chatService: ChatService) {
+      this.currentFriends = [];
       this.friendService.fetchFriends().pipe(map((data => {
         return data.allUsers.map(res => {
           return {
@@ -31,18 +34,19 @@ export class FriendsComponent implements OnInit {
         });
       })))
       .subscribe((data) => {
-        this.friends = data;
-        for (let i = 0 ; i < this.friends.length; i++) {
-          if (this.friends[i]._id === this.userService.currentUser._id) {
-            this.friends.splice(i, 1);
+        this.currentFriends = data;
+        this.users = this.currentFriends;
+        for (let i = 0 ; i < this.users.length; i++) {
+          if (this.users[i]._id === this.userService.currentUser._id) {
+            this.users.splice(i, 1);
             break;
           }
         }
-        this.friendService.setSelectedFriend(this.friends[0]);
+        this.friendService.setSelectedFriend(this.users[0]);
         this.friendService.getFirstFriend();
        // this.getFriends.next(this.friends);
       });
-
+      this.didSearch = false;
   }
 
   ngOnInit() {}
@@ -52,4 +56,15 @@ export class FriendsComponent implements OnInit {
     this.friendService.setSelectedFriend(friend);
   }
 
+  findPossibleUsers(user: string) {
+    this.friendService.findPossibleUsers(user).subscribe(data => {
+      this.users = data;
+      this.didSearch = true;
+    });
+  }
+
+  goBackToFriends() {
+    this.didSearch = false;
+    this.users = this.currentFriends;
+  }
 }
