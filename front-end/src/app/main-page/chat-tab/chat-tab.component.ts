@@ -36,6 +36,7 @@ export class ChatTabComponent implements OnInit {
       };
      }
     });
+    // FIX LOGIC ON SENDING A MESSAGE
     this.socket.on('sendMessage', (m) => {
       const message = JSON.parse(m);
       if (this.userService.currentUser._id === message.author) {

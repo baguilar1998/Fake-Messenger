@@ -21,9 +21,17 @@ router.get('/allUsers', (req,res)=>{
 router.post('/addFriend', (req,res,next)=>{
   const user = req.body.user;
   const friend = req.body.friend;
-  User.updateOne({"_id":user}, {$push:{friends:friend}}, {safe:true, multi:true})
+  User.updateOne({"_id":user}, {$push:{friends:friend}}, {safe:true, multi:true, upsert:true})
   .then(results =>{
     res.status(200).send(results);
+    User.updateOne({"_id":friend}, {$push:{friends:user}}, {safe:true, multi:true, upsert:true})
+    .then(results =>{
+      res.status(200).send(results);
+    }).catch(err=>{
+      console.log("An error has occured in adding a frined");
+      console.log(err);
+      res.status(400).send(err);
+    });
   }).catch(err=>{
     console.log("An error has occured in adding a frined");
     console.log(err);

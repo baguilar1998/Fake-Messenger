@@ -70,8 +70,11 @@ export class ChatService {
     };
     this.http.post<any>('//localhost:3000/api/chat/newConversation', conversation)
     .subscribe((newChat) => {
-      this.chat = newChat;
-      this.sendMessage(message);
+      this.friendService.addFriend(this.user._id, this.selectedFriend._id).subscribe(data => {
+        console.log('friend has been added');
+        this.chat = newChat;
+        this.sendMessage(message);
+      });
     });
   }
 
