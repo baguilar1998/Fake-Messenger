@@ -22,26 +22,10 @@ export class FriendsComponent implements OnInit {
     private userService: UserService,
     private chatService: ChatService) {
       this.currentFriends = [];
-      this.friendService.fetchFriends().pipe(map((data => {
-        return data.allUsers.map(res => {
-          return {
-            _id: res._id,
-            firstName: res.firstName,
-            lastName: res.lastName,
-            email: res.email,
-            password: res.password
-          };
-        });
-      })))
+      this.friendService.fetchFriends(this.userService.currentUser._id)
       .subscribe((data) => {
         this.currentFriends = data;
         this.users = this.currentFriends;
-        for (let i = 0 ; i < this.users.length; i++) {
-          if (this.users[i]._id === this.userService.currentUser._id) {
-            this.users.splice(i, 1);
-            break;
-          }
-        }
         this.friendService.setSelectedFriend(this.users[0]);
         this.friendService.getFirstFriend();
        // this.getFriends.next(this.friends);

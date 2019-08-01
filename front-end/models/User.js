@@ -6,7 +6,8 @@ var UserSchema = new mongoose.Schema({
   firstName: {type: String, default: String ,required:true},
   lastName: {type: String, default: String, required:true},
   email: {type: String, default: String, required:true, unique: true},
-  password: {type: String, default: String, required:true}
+  password: {type: String, default: String, required:true},
+  friends: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}]
 });
 
 /**

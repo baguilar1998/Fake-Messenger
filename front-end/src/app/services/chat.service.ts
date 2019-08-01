@@ -32,7 +32,9 @@ export class ChatService {
   }
 
   getConversation(selectedFriend: User): void {
-    console.log(selectedFriend);
+    if(selectedFriend == null) {
+      return;
+    }
     const chatInfo = {
       users: [selectedFriend._id, this.user._id]
     };

@@ -24,7 +24,17 @@ export class ChatTabComponent implements OnInit {
     private socket: Socket) {
     this.subscription = friendService.selectedFriendChange.subscribe((data) => this.selectedFriend = data );
     this.selectedFriend = this.friendService.firstSelectedFriend.subscribe((data) => {
+     if (data != null) {
       this.selectedFriend = data;
+     } else {
+      this.selectedFriend = {
+        _id: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+      };
+     }
     });
     this.socket.on('sendMessage', (m) => {
       const message = JSON.parse(m);

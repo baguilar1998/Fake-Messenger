@@ -37,8 +37,19 @@ export class FriendService {
   /**
    * @return Obersavable of all the users in the database
    */
-  fetchFriends() {
-    return this.http.get<{allUsers: any}>('//localhost:3000/api/friends/allUsers');
+  fetchFriends(userId) {
+    const req = {
+      user: userId
+    };
+    return this.http.post<any>('//localhost:3000/api/friends/findFriends',req);
+  }
+
+  addFriend(currentUser, newFriend): Observable<any> {
+    const req = {
+      user: currentUser,
+      friend: newFriend
+    };
+      return this.http.post<any>('//localhost:3000/api/friends/addFriend', req);
   }
 
   findPossibleUsers(user:string): Observable<any> {
