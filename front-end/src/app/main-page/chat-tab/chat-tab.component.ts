@@ -39,7 +39,11 @@ export class ChatTabComponent implements OnInit {
     // FIX LOGIC ON SENDING A MESSAGE
     this.socket.on('sendMessage', (m) => {
       const message = JSON.parse(m);
-      if (this.userService.currentUser._id === message.author) {
+      if (this.chatService.chat === null) {
+        return;
+      } else if (message.chatId._id !== this.chatService.chat._id) {
+        return;
+      } else if (this.userService.currentUser._id === message.author) {
         message.type = 0;
         this.chatService.messageLog.push(message);
       } else {

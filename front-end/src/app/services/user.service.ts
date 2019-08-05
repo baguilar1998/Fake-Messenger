@@ -81,6 +81,7 @@ export class UserService {
               firstName: temp.firstName,
               lastName: temp.lastName,
               email: temp.email,
+              friends: temp.friends,
               password: temp.password
             };
             this.currentUser = user;
@@ -133,6 +134,7 @@ export class UserService {
           firstName: temp.firstName,
           lastName: temp.lastName,
           email: temp.email,
+          friends: this.currentUser.friends,
           password: temp.password
         };
         this.currentUser = updatedUser;

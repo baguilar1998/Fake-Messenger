@@ -32,7 +32,11 @@ export class ChatService {
   }
 
   getConversation(selectedFriend: User): void {
-    if(selectedFriend == null) {
+    this.chat = null;
+    if (selectedFriend == null) {
+      return;
+    }
+    if (!this.user.friends.includes(selectedFriend._id)) {
       return;
     }
     const chatInfo = {
@@ -89,6 +93,7 @@ export class ChatService {
       }
       this.http.post<any>('//localhost:3000/api/chat/sendMessage', newMessage)
       .subscribe((data) => {
+        data.chatId = this.chat;
         this.socket.emit('sendMessage', data);
       });
     }

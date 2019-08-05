@@ -23,7 +23,6 @@ router.post('/addFriend', (req,res,next)=>{
   const friend = req.body.friend;
   User.updateOne({"_id":user}, {$push:{friends:friend}}, {safe:true, multi:true, upsert:true})
   .then(results =>{
-    res.status(200).send(results);
     User.updateOne({"_id":friend}, {$push:{friends:user}}, {safe:true, multi:true, upsert:true})
     .then(results =>{
       res.status(200).send(results);

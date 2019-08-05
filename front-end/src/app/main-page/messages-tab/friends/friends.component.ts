@@ -29,6 +29,7 @@ export class FriendsComponent implements OnInit {
         this.friendService.setSelectedFriend(this.users[0]);
         this.friendService.getFirstFriend();
        // this.getFriends.next(this.friends);
+       console.log(this.userService.currentUser.friends);
       });
       this.didSearch = false;
   }
