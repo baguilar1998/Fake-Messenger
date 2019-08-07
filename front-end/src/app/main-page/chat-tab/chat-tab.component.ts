@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FriendService } from '../../services/friend.service';
 import { SocketService } from '../../services/socket.service';
@@ -12,7 +12,7 @@ import { Socket } from 'ngx-socket-io';
   templateUrl: './chat-tab.component.html',
   styleUrls: ['./chat-tab.component.css']
 })
-export class ChatTabComponent implements OnInit {
+export class ChatTabComponent implements OnInit, OnDestroy {
 
   selectedFriend;
   messages: Message[] = [];
@@ -55,6 +55,11 @@ export class ChatTabComponent implements OnInit {
 
   ngOnInit() {
     this.userService.autoAuthUser();
+  }
+
+  ngOnDestroy() {
+    this.chatService.chat = null;
+    this.chatService.selectedFriend = null;
   }
 
   /**

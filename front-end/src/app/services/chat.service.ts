@@ -23,9 +23,9 @@ export class ChatService {
   private friendService: FriendService,
   private http: HttpClient,
   private socket: Socket) {
-    this.user = userService.currentUser;
     friendService.selectedFriendChange.subscribe((data) => {
       this.selectedFriend = data;
+      this.user = this.userService.currentUser;
       this.getConversation(data);
     });
 

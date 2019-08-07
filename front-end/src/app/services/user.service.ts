@@ -172,6 +172,7 @@ export class UserService {
   logout () {
     this.token = null;
     this.authenticated = false;
+    this.currentUser = null;
     this.authStatusListener.next(false);
     this.clearAuthData();
     clearTimeout(this.tokenTimer);

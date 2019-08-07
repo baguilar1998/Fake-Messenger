@@ -22,15 +22,7 @@ export class FriendsComponent implements OnInit {
     private userService: UserService,
     private chatService: ChatService) {
       this.currentFriends = [];
-      this.friendService.fetchFriends(this.userService.currentUser._id)
-      .subscribe((data) => {
-        this.currentFriends = data;
-        this.users = this.currentFriends;
-        this.friendService.setSelectedFriend(this.users[0]);
-        this.friendService.getFirstFriend();
-       // this.getFriends.next(this.friends);
-       console.log(this.userService.currentUser.friends);
-      });
+      this.getFriendsList();
       this.didSearch = false;
   }
 
@@ -50,6 +42,18 @@ export class FriendsComponent implements OnInit {
 
   goBackToFriends() {
     this.didSearch = false;
-    this.users = this.currentFriends;
+    this.getFriendsList();
+  }
+
+  getFriendsList(): void {
+    this.friendService.fetchFriends(this.userService.currentUser._id)
+    .subscribe((data) => {
+      this.currentFriends = data;
+      this.users = this.currentFriends;
+      this.friendService.setSelectedFriend(this.users[0]);
+      this.friendService.getFirstFriend();
+     // this.getFriends.next(this.friends);
+     console.log(this.userService.currentUser.friends);
+    });
   }
 }

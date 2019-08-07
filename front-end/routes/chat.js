@@ -8,7 +8,6 @@ router.post('/newConversation', (req,res,next)=>{
   const chat = new Chat({
     users: req.body.users
   });
-
   chat.save().then(results => {
     console.log("A new conversation has started!");
     res.status(200).send(results);
@@ -21,21 +20,16 @@ router.post('/newConversation', (req,res,next)=>{
 
 router.post('/getConversation', (req,res,next)=>{
   const users = req.body.users;
-  Chat.findOne({users:{$in:users}}).then((results)=>{
-    let counter = 0;
-    console.log(results);
-    let usersArray = results.users;
-    for(let i = 0; i < usersArray.length; i++) {
-      for(let j = 0; j < users.length; j++) {
-        if(usersArray[j] == users[i])
-          counter++;
+  console.log(users);
+  Chat.find({users:{$in:users}}).then((results)=>{
+    let chat = {};
+    for(let i = 0; i < results.length; i++) {
+      let chatResults = results[i].users;
+      if(chatResults.indexOf(users[0]) > -1 && chatResults.indexOf(users[1]) > -1) {
+        chat = results[i];
       }
     }
-    console.log(counter);
-    if(counter == users.length)
-      res.status(200).send(results);
-    else
-      res.status(200).send(null);
+    res.status(200).send(chat);
   });
 });
 
