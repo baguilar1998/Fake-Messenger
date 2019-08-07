@@ -18,6 +18,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   subscription;
   chat: Chat;
+  isTyping: boolean;
   constructor(private userService: UserService,
     private friendService: FriendService,
     private chatService: ChatService,
@@ -35,6 +36,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
         password: ''
       };
      }
+     this.isTyping = false;
     });
     // FIX LOGIC ON SENDING A MESSAGE
     this.socket.on('sendMessage', (m) => {
@@ -51,6 +53,17 @@ export class ChatTabComponent implements OnInit, OnDestroy {
         this.chatService.messageLog.push(message);
       }
     });
+
+    this.socket.on('isTyping', (res) => {
+      if (res._id === this.userService.currentUser._id) {
+        return;
+      } else if (res.typing) {
+        this.isTyping = true;
+      } else if (!res.typing) {
+        this.isTyping = false;
+      }
+    });
+
    }
 
   ngOnInit() {
@@ -81,6 +94,11 @@ export class ChatTabComponent implements OnInit, OnDestroy {
      };
     }
     this.chatService.sendMessage(message.message);
+    const typingMessage = {
+      _id: this.userService.currentUser._id,
+      text: ''
+    };
+    this.socket.emit("isTyping",typingMessage);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 
@@ -90,5 +108,13 @@ export class ChatTabComponent implements OnInit, OnDestroy {
 
   setChat(chat) {
     this.chat = chat;
+  }
+
+  checkTyping(event): void {
+    const typingMessage = {
+      _id: this.userService.currentUser._id,
+      text: event.target.value
+    };
+    this.socket.emit('isTyping', typingMessage);
   }
 }

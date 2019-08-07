@@ -31,6 +31,10 @@ ul li{
   float: left;
   margin-left:8px;
 }
+.other-clear{
+  float: left;
+  margin-left:8px;
+}
 .me{
   float: right;
   background: #0084ff;

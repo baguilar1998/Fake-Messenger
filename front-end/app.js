@@ -76,6 +76,17 @@ io.on("connection", (socket)=>{
     io.emit("sendMessage",JSON.stringify(message));
   });
 
+  socket.on("isTyping", (message) => {
+    const res = {
+      _id: message._id,
+      typing: false
+    }
+    if (message.text.length !== 0) {
+      res.typing = true;
+      io.emit("isTyping",res);
+    }
+    io.emit("isTyping", res);
+  });
   socket.on("disconnect", () => {
     console.log("A user has left the site");
   });

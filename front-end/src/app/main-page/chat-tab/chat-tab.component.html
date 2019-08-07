@@ -23,7 +23,7 @@
       <div style="max-height:88.2vh;min-height:88.2vh;overflow-y:scroll;">
         <br>
         <!-- Use an NGFOR -->
-          <ul *ngFor = "let m of this.chatService.messageLog" >
+          <ul *ngFor = "let m of this.chatService.messageLog; let i = index" >
             <li *ngIf='m.type==1 && m.body!="(y)"' class="other">{{m.body}}</li>
             <li *ngIf='m.type==0 && m.body!="(y)"' class="me">{{m.body}}</li>
             <li *ngIf='m.type==1 && m.body=="(y)"' class="other">
@@ -32,13 +32,17 @@
             <li *ngIf='m.type==0 && m.body=="(y)"' class="me">
                 <img src="../../../assets/icons/like.png" style="width:30px;display:block;margin:auto">
             </li>
+            <li *ngIf="i === this.chatService.messageLog.length -1 && isTyping" class="other-clear">
+              <img style="width:70px"src="../../../assets/tenor.gif" />
+            </li>
           </ul>
+
       </div>
 
       <!--Input box to send messages-->
       <div class="row" style="border-top: 2px solid #F3F3F3;">
         <div class="input-group mb-3" >
-          <input id="res" type="text" class="form-control no-border" placeholder="Type a message..." (keyup.enter)="sendMessage($event)" value=''>
+          <input id="res" type="text" class="form-control no-border" placeholder="Type a message..." (keyup)="checkTyping($event)" (keyup.enter)="sendMessage($event)" value=''>
           <div class="input-group-append">
             <span style="cursor: pointer; padding:5px"><img src="../../../assets/icons/thumbsup.PNG" alt="Thumbs Up" (click)="thumbsUp()"></span>
           </div>
