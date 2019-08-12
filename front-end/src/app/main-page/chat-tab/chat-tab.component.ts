@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FriendService } from '../../services/friend.service';
-import { SocketService } from '../../services/socket.service';
 import { Message } from '../../typescriptmodels/Message';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from 'src/app/typescriptmodels/Chat';
@@ -55,7 +54,10 @@ export class ChatTabComponent implements OnInit, OnDestroy {
     });
 
     this.socket.on('isTyping', (res) => {
+      console.log(res);
       if (res._id === this.userService.currentUser._id) {
+        return;
+      } else if (res.chatId._id !== this.chatService.chat._id) {
         return;
       } else if (res.typing) {
         this.isTyping = true;
@@ -98,7 +100,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
       _id: this.userService.currentUser._id,
       text: ''
     };
-    this.socket.emit("isTyping",typingMessage);
+    this.socket.emit('isTyping', typingMessage);
     (document.getElementById('res') as HTMLInputElement).value = '';
   }
 
@@ -113,6 +115,7 @@ export class ChatTabComponent implements OnInit, OnDestroy {
   checkTyping(event): void {
     const typingMessage = {
       _id: this.userService.currentUser._id,
+      chatId: this.chatService.chat,
       text: event.target.value
     };
     this.socket.emit('isTyping', typingMessage);

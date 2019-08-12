@@ -79,6 +79,7 @@ io.on("connection", (socket)=>{
   socket.on("isTyping", (message) => {
     const res = {
       _id: message._id,
+      chatId: message.chatId,
       typing: false
     }
     if (message.text.length !== 0) {
