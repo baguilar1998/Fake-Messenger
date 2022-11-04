@@ -52,7 +52,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",
     "codelyzer": "~4.2.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-typescript": "^5.0.0-alpha.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
